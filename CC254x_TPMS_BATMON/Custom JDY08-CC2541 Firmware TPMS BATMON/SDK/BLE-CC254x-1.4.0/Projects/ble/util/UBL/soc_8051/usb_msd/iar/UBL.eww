@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<workspace>
+  <project>
+    <path>$WS_DIR$\UBL.ewp</path>
+  </project>
+  <batchBuild>
+    <batchDefinition>
+      <name>All</name>
+      <member>
+        <project>UBL</project>
+        <configuration>CC2540-DK</configuration>
+      </member>
+      <member>
+        <project>UBL</project>
+        <configuration>CC2540-Nano</configuration>
+      </member>
+    </batchDefinition>
+  </batchBuild>
+</workspace>
+
+

@@ -1,0 +1,235 @@
+/***********************************************************************************
+
+    Filename:     usb_cdc_descriptor.s51
+
+    Description:  Descriptor for USB CDC class.
+
+***********************************************************************************/
+/*
++------------------------------------------------------------------------------
+|The default USB descriptor defines a minimum configuration, with no endpoints
+|apart from EP0. The application can define 3 IN and OUT endpoints, and override
+|the configuration and interface descriptor (only one of each).
+|The device and string descriptors are locked.
++------------------------------------------------------------------------------*/
+
+
+#define ASM_FILE
+#include "..\library\usb_descriptor.h"
+#include "usb_cdc.h"
+
+#if !defined chip
+#define chip 2540
+#endif
+
+                MODULE  usb_descriptor
+
+                RSEG    RCODE
+
+                PUBLIC usbDescStart;
+                PUBLIC usbDescEnd;
+                PUBLIC usbDescLut;
+                PUBLIC usbDescLutEnd;
+                PUBLIC usbDblbufLut;
+                PUBLIC usbDblbufLutEnd;
+
+;;-------------------------------------------------------------------------------------------------------
+;; USB descriptors
+usbDescStart:
+deviceDesc:     ; Device descriptor
+                DB deviceDescEnd - deviceDesc
+                DB DESC_TYPE_DEVICE ; bDescriptorType
+                DB 00H, 02H         ; bcdUSB
+                DB CDC_DEVICE       ; bDeviceClass
+                DB 00H              ; bDeviceSubClass
+                DB 00H              ; bDeviceProtocol
+                DB EP0_PACKET_SIZE
+                DB 51H, 04H         ; idVendor Texas Instruments
+                #if (chip==2540)
+                DB 0AAH, 16H        ; idProduct CC2540
+                #elif (chip==2531)
+                DB 0A8H, 16H        ; idProduct CC2531
+                #elif (chip==2511)
+                DB 0A4H, 16H        ; idProduct CC2511
+                #else
+                DB 0A6H, 16H        ; idProduct CC1111
+                #endif
+                DB 09H, 00H         ; bcdDevice
+                DB 01H              ; iManufacturer
+                DB 02H              ; iProduct
+                DB 03H              ; iSerialNumber (OR set to zero)
+                DB 01H              ; bNumConfigurations
+deviceDescEnd:
+
+config1LengthStart:
+configDesc:     ; Configuration descriptor
+                DB configDescEnd - configDesc
+                DB DESC_TYPE_CONFIG ; bDescriptorType
+                DB config1LengthEnd - config1LengthStart, 00H
+                DB 02H              ; NumInterfaces
+                DB 01H              ; bConfigurationValue
+                DB 00H              ; iConfiguration
+                DB 80H              ; bmAttributes
+                DB 25               ; MaxPower
+configDescEnd:
+
+
+;
+;               INTERFACE 0
+;
+
+
+interface0Desc: ; Interface descriptor
+                DB interface0DescEnd - interface0Desc
+                DB DESC_TYPE_INTERFACE    ; bDescriptorType
+                DB 00H                    ; bInterfaceNumber
+                DB 00H                    ; bAlternateSetting
+                DB 01H                    ; bNumEndpoints
+                DB COMM_INTF              ; bInterfaceClass
+                DB ABSTRACT_CONTROL_MODEL ; bInterfaceSubClass
+                DB V25TER                 ; bInterfaceProcotol
+                DB 00H                    ; iInterface
+interface0DescEnd:
+
+;; CDC Class-Specific Descriptors
+
+headerFunctionalDesc: ; Header Functional Descriptor
+                DB headerFunctionalDescEnd - headerFunctionalDesc
+                DB CS_INTERFACE
+                DB DSC_FN_HEADER
+                DB 10H, 01H
+headerFunctionalDescEnd:
+
+
+absCtrlManFuncDesc: ; Abstract Control Management Functional Descriptor
+                DB absCtrlManFuncDescEnd - absCtrlManFuncDesc
+                DB CS_INTERFACE
+                DB DSC_FN_ACM
+                DB 02H   ;set the supported class requests
+absCtrlManFuncDescEnd:
+
+unionFunctionalDesc: ; Union Functional Descriptor
+                DB unionFunctionalDescEnd - unionFunctionalDesc
+                DB CS_INTERFACE
+                DB DSC_FN_UNION
+                DB CDC_COMM_INTF_ID
+                DB CDC_DATA_INTF_ID
+unionFunctionalDescEnd:
+
+
+callMngFuncDesc: ; Call Management Functional Descriptor
+                DB callMngFuncDescEnd - callMngFuncDesc
+                DB CS_INTERFACE
+                DB DSC_FN_CALL_MGT
+                DB 00H
+                DB CDC_DATA_INTF_ID
+callMngFuncDescEnd:
+
+
+
+endpoint0Desc:  ; Endpoint descriptor (EP2 IN)
+                DB endpoint0DescEnd - endpoint0Desc
+                DB DESC_TYPE_ENDPOINT     ; bDescriptorType
+                DB 82H                    ; bEndpointAddress
+                DB EP_ATTR_INT            ; bmAttributes
+                DB 40H, 00H               ; wMaxPacketSize
+                DB 40H                    ; bInterval
+endpoint0DescEnd:
+
+;
+;               INTERFACE 1
+;
+
+interface1Desc: ; Interface descriptor
+                DB interface1DescEnd - interface1Desc
+                DB DESC_TYPE_INTERFACE    ; Interface descriptor type
+                DB 01H                    ; Interface Number
+                DB 00H                    ; Alternate Setting Number
+                DB 02H                    ; Number of endpoints in this intf
+                DB DATA_INTF              ; Class code
+                DB 00H                    ; Subclass code
+                DB NO_PROTOCOL            ; Protocol code
+                DB 00H                    ; Interface string index
+interface1DescEnd:
+
+
+endpoint1Desc:  ; Endpoint descriptor (EP4 OUT)
+                DB endpoint1DescEnd - endpoint1Desc
+                DB DESC_TYPE_ENDPOINT     ; bDescriptorType
+                DB 84H                    ; bEndpointAddress
+                DB EP_ATTR_BULK           ; bmAttributes
+                DB 40H, 00H               ; wMaxPacketSize
+                DB 01H                    ; bInterval
+endpoint1DescEnd:
+
+endpoint2Desc:  ; Endpoint descriptor (EP4 IN)
+                DB endpoint2DescEnd - endpoint2Desc
+                DB DESC_TYPE_ENDPOINT     ; bDescriptorType
+                DB 04H                    ; bEndpointAddress
+                DB EP_ATTR_BULK           ; bmAttributes
+                DB 40H, 00H               ; wMaxPacketSize
+                DB 01H                    ; bInterval
+endpoint2DescEnd:
+config1LengthEnd:
+;;-------------------------------------------------------------------------------------------------------
+
+usbDescEnd:
+;;-------------------------------------------------------------------------------------------------------
+
+
+;;-------------------------------------------------------------------------------------------------------
+;; Look-up table for descriptors that are not returned through requests for DSC_DEVICE, DSC_CONFIG or
+;; DSC_STRING (e.g. HID report descriptors)
+usbDescLut:
+usbDescLutEnd:
+;;-------------------------------------------------------------------------------------------------------
+
+
+;;-------------------------------------------------------------------------------------------------------
+;; Look-up table for double buffer settings (one set of bit masks for each defined interface)
+usbDblbufLut:  DW interface0Desc   ; pInterface
+                DB 00H              ; inMask
+                DB 00H              ; outMask
+                DW interface1Desc   ; pInterface
+                DB 00H              ; inMask
+                DB 00H              ; outMask
+usbDblbufLutEnd:
+;;-------------------------------------------------------------------------------------------------------
+
+
+                END;
+
+
+/*
++------------------------------------------------------------------------------
+|  Copyright 2004-2010 Texas Instruments Incorporated. All rights reserved.
+|
+|  IMPORTANT: Your use of this Software is limited to those specific rights
+|  granted under the terms of a software license agreement between the user who
+|  downloaded the software, his/her employer (which must be your employer) and
+|  Texas Instruments Incorporated (the "License"). You may not use this Software
+|  unless you agree to abide by the terms of the License. The License limits
+|  your use, and you acknowledge, that the Software may not be modified, copied
+|  or distributed unless embedded on a Texas Instruments microcontroller or used
+|  solely and exclusively in conjunction with a Texas Instruments radio
+|  frequency transceiver, which is integrated into your product. Other than for
+|  the foregoing purpose, you may not use, reproduce, copy, prepare derivative
+|  works of, modify, distribute, perform, display or sell this Software and/or
+|  its documentation for any purpose.
+|
+|  YOU FURTHER ACKNOWLEDGE AND AGREE THAT THE SOFTWARE AND DOCUMENTATION ARE
+|  PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED,
+|  INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY, TITLE,
+|  NON-INFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT SHALL
+|  TEXAS INSTRUMENTS OR ITS LICENSORS BE LIABLE OR OBLIGATED UNDER CONTRACT,
+|  NEGLIGENCE, STRICT LIABILITY, CONTRIBUTION, BREACH OF WARRANTY, OR OTHER
+|  LEGAL EQUITABLE THEORY ANY DIRECT OR INDIRECT DAMAGES OR EXPENSES INCLUDING
+|  BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT, PUNITIVE OR
+|  CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF PROCUREMENT OF
+|  SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
+|  (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
+|
+|  Should you have any questions regarding your right to use this Software,
+|  contact Texas Instruments Incorporated at www.TI.com.
+|
+*/

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<workspace>
+  <project>
+    <path>$WS_DIR$\SBL.ewp</path>
+  </project>
+  <batchBuild>
+    <batchDefinition>
+      <name>All</name>
+      <member>
+        <project>SBL</project>
+        <configuration>CC254xF256_SPI1_ALT2</configuration>
+      </member>
+      <member>
+        <project>SBL</project>
+        <configuration>CC254xF256_UART0_ALT1</configuration>
+      </member>
+    </batchDefinition>
+  </batchBuild>
+</workspace>
+
+

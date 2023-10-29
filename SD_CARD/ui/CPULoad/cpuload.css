@@ -1,0 +1,77 @@
+
+#mzdContainer {
+    font-family:Tipperary,verdana;
+    top:0px;
+    right:0;
+    bottom:0;
+    left:0;
+    height:416px;
+    width:800px;
+    position:relative;
+
+}
+
+
+
+#mzdMainDiv {
+    width: 800px;
+    height: 416px;
+    top: 0px;
+    left: 0px;
+    position: absolute;
+}
+
+#myChart {
+    width: 800px;
+    height: 416px;
+    top: 0px;
+    left: 0px;
+    position: absolute;
+	z-index: 95;
+}
+
+.Deb1 {
+	position: absolute;
+    left: 175px;
+    top: 9px;
+	font-size: 12px;
+	color: white;
+	z-index: 96;
+}
+
+.Deb2 {
+	position: absolute;
+    left: 405px;
+    top: 9px;
+	font-size: 12px;
+	color: white;
+	z-index: 96;
+}
+
+.Deb3 {
+	position: absolute;
+    left: 640px;
+    top: 9px;
+	font-size: 12px;
+	color: white;
+	z-index: 96;
+}
+
+#mzdMainDiv .MBG1 {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 800px;
+    height: 209px;
+	background-image: url('http://192.168.0.10/page?var=file&val=/ui/CPULoad/img/b1.jpg');
+    z-index: 1;
+}
+#mzdMainDiv .MBG2 {
+    position: absolute;
+    left: 0px;
+    top: 207px;
+    width: 800px;
+    height: 209px;
+	background-image: url('http://192.168.0.10/page?var=file&val=/ui/CPULoad/img/b2.jpg');
+    z-index: 1;
+}

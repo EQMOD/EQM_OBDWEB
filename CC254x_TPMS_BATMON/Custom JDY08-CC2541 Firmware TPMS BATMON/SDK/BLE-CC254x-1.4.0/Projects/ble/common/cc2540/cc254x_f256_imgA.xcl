@@ -1,0 +1,210 @@
+/**************************************************************************************************
+  Filename:       cc254x_f256_imgA.xcl
+  Revised:        $Date: 2010-09-22 11:40:55 -0700 (Wed, 22 Sep 2010) $
+  Revision:       $Revision: 23872 $
+
+  Description:
+
+  This is a linker command line file for the IAR XLINK tool for the CC254x BLE
+  sample applications built with the General Options for the location of constants and strings
+  configured to be "ROM mapped as data".
+
+  This mapping is for applications that are to be run by the Boot Image Manager.
+
+
+  Copyright 2012 Texas Instruments Incorporated. All rights reserved.
+
+  IMPORTANT: Your use of this Software is limited to those specific rights
+  granted under the terms of a software license agreement between the user
+  who downloaded the software, his/her employer (which must be your employer)
+  and Texas Instruments Incorporated (the "License").  You may not use this
+  Software unless you agree to abide by the terms of the License. The License
+  limits your use, and you acknowledge, that the Software may not be modified,
+  copied or distributed unless embedded on a Texas Instruments microcontroller
+  or used solely and exclusively in conjunction with a Texas Instruments radio
+  frequency transceiver, which is integrated into your product.  Other than for
+  the foregoing purpose, you may not use, reproduce, copy, prepare derivative
+  works of, modify, distribute, perform, display or sell this Software and/or
+  its documentation for any purpose.
+
+  YOU FURTHER ACKNOWLEDGE AND AGREE THAT THE SOFTWARE AND DOCUMENTATION ARE
+  PROVIDED “AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED,
+  INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY, TITLE,
+  NON-INFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT SHALL
+  TEXAS INSTRUMENTS OR ITS LICENSORS BE LIABLE OR OBLIGATED UNDER CONTRACT,
+  NEGLIGENCE, STRICT LIABILITY, CONTRIBUTION, BREACH OF WARRANTY, OR OTHER
+  LEGAL EQUITABLE THEORY ANY DIRECT OR INDIRECT DAMAGES OR EXPENSES
+  INCLUDING BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT, PUNITIVE
+  OR CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF PROCUREMENT
+  OF SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
+  (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
+
+  Should you have any questions regarding your right to use this Software,
+  contact Texas Instruments Incorporated at www.TI.com.
+
+**************************************************************************************************/
+
+////////////////////////////////////////////////////////////////////////////////
+//
+// Segment limits
+//
+
+//
+// XDATA available to the program.
+//
+-D_XDATA_BEG=0x0000
+-D_XDATA_END=0x1EFF
+
+//
+// The 8052 IDATA is overlayed on the SoC XDATA space from 0x1F00-0x1FFF.
+//
+-D_IDATA_BEG=0x0A  // Must reserve 0x08-0x09 for the IBM INTVEC re-direct.
+-D_IDATA_END=0xFF
+
+//
+// CODE
+//
+-D_CODE_BEG=0x0830             // First page is for the IBM which intercepts the H/W INTVECS.
+-D_CODE_END=0x3FFF             // Next 7 pages of Bank 0.
+//
+-D_BANK4_BEG=0x4B000           // Last 10 pages of Bank 4.
+-D_BANK4_END=0x4FFFF
+//
+-D_BANK5_BEG=0x58000
+-D_BANK5_END=0x5FFFF
+//
+-D_BANK6_BEG=0x68000
+-D_BANK6_END=0x6FFFF
+//
+-D_BANK7_BEG=0x78000
+// Cannot use the lock-bits page in a boot-loadable image; skip NV pages area.
+-D_BANK7_END=0x7E7FF
+
+//
+// Register bank setup
+//
+-D?REGISTER_BANK=0             // Default register bank (0,1,2,3).
+-D_REGISTER_BANK_BEG=0         // Start address for default register bank (00,08,10,18).
+
+//
+// PDATA page setup
+//
+-D?PBANK_NUMBER=00             // High byte of 16-bit address to the PDATA area.
+
+//
+// Virtual register setup
+//
+
+-D_BREG_BEG=0x00               // The bit address where the BREG segments starts.
+                               // Must be placed on: _BREG_BEG%8=0 where _BREG_BEG <= 0x78.
+
+-D?VB=0x20                     // ?VB is used when referencing BREG as whole byte.
+                               // Must be placed on: ?VB=0x20+_BREG_BEG/8.
+
+////////////////////////////////////////////////////////////////////////////////
+//
+// IDATA memory
+//
+
+// Setup "bit" segments (only for '__no_init bool' variables).
+-Z(BIT)BREG=_BREG_BEG
+-Z(BIT)BIT_N=0-7F
+
+-Z(DATA)REGISTERS+8=_REGISTER_BANK_BEG
+-Z(DATA)BDATA_Z,BDATA_N,BDATA_I=20-2F
+-Z(DATA)VREG+_NR_OF_VIRTUAL_REGISTERS=_IDATA_BEG-7F
+-Z(DATA)PSP,XSP=_IDATA_BEG-7F
+-Z(DATA)DOVERLAY=_IDATA_BEG-7F
+-Z(DATA)DATA_I,DATA_Z,DATA_N=_IDATA_BEG-7F
+
+-U(IDATA)0-7F=(DATA)0-7F
+-Z(IDATA)IDATA_I,IDATA_Z,IDATA_N=_IDATA_BEG-_IDATA_END
+-Z(IDATA)ISTACK+_IDATA_STACK_SIZE#_IDATA_BEG-_IDATA_END
+-Z(IDATA)IOVERLAY=_IDATA_BEG-FF
+
+////////////////////////////////////////////////////////////////////////////////
+//
+// ROM memory
+//
+
+-Z(CODE)CHECKSUM=0x0800-0x0801
+-Z(CODE)IMAGE_HEADER=0x802-0x80F
+-Z(CODE)AES_HEADER=0x810-0x82F
+
+-Z(CODE)INTVEC=_CODE_BEG-_CODE_END
+-Z(CODE)BIT_ID,BDATA_ID,DATA_ID,IDATA_ID,IXDATA_ID,PDATA_ID,XDATA_ID=_CODE_BEG-_CODE_END
+-Z(CODE)CSTART,RCODE,DIFUNCT,NEAR_CODE=_CODE_BEG-_CODE_END
+-Z(CODE)BANK_RELAYS=_CODE_BEG-_CODE_END
+
+-D_SLEEP_CODE_SPACE_START=(_CODE_END-7)
+-D_SLEEP_CODE_SPACE_END=(_CODE_END)
+-Z(CODE)SLEEP_CODE=_SLEEP_CODE_SPACE_START-_SLEEP_CODE_SPACE_END
+
+//
+// Setup for constants located in code memory:
+//
+-Z(CODE)CODE_C=_CODE_BEG-_CODE_END
+//
+// Define segments for const data in flash.
+// First the segment with addresses as used by the program (flash mapped as upper XDATA)
+-P(CONST)XDATA_ROM_C=0x8000-0xFFFF
+//
+// Then the segment with addresses as put in the hex file (flash bank 5).
+-P(CODE)XDATA_ROM_C_FLASH=_BANK5_BEG-_BANK5_END
+//
+// Finally link these segments (XDATA_ROM_C_FLASH is the initializer segment for XDATA_ROM_C,
+// we map the flash in the XDATA address range instead of copying the data to RAM)
+-QXDATA_ROM_C=XDATA_ROM_C_FLASH
+
+-Z(CODE)ALIGNED_CODE|2=_CODE_BEG-_CODE_END,_BANK4_BEG-_BANK4_END,_BANK5_BEG-_BANK5_END,\
+_BANK6_BEG-_BANK6_END,_BANK7_BEG-_BANK7_END
+-P(CODE)BANKED_CODE=_CODE_BEG-_CODE_END,_BANK4_BEG-_BANK4_END,_BANK5_BEG-_BANK5_END,\
+_BANK6_BEG-_BANK6_END,_BANK7_BEG-_BANK7_END
+
+////////////////////////////////////////////////////////////////////////////////
+//
+// XDATA memory
+//
+
+-Z(XDATA)XSTACK+_XDATA_STACK_SIZE=_XDATA_BEG-_XDATA_END
+-Z(XDATA)XDATA_Z,XDATA_I,PDATA_Z=_XDATA_BEG-_XDATA_END
+-P(XDATA)XDATA_N=_XDATA_BEG-_XDATA_END
+
+-cx51
+
+////////////////////////////////////////////////////////////////////////////////
+//
+// Misc.
+//
+
+//
+// Offset fix for the unconventional bank numbering for this SOC (root bank is callled "bank 0").
+-D_FIRST_BANK_ADDR=0x10000
+
+//
+// NOTE: The -M option below is needed when linker output should be in "intel-extended" (HEX)
+//       file format for banked code model. It translates the logical addresses for the EW8051
+//       to physical addresses in the output file format. Without this, the HEX output file will
+//       include 32 kB blocks of zero bytes/gap in between each code bank.
+//
+-M(CODE)[(_CODEBANK_START+_FIRST_BANK_ADDR)-(_CODEBANK_END+_FIRST_BANK_ADDR)]*_NR_OF_BANKS+0x10000=\
+0x8000
+
+// When -M is used to build debug output, XLINK gives warning [w69] which is safely ignored.
+-ww69=i
+
+// When INTVEC is relocated, XLINK gives error [e18] which is safely ignored.
+-we18=i
+
+//
+// Fill code gaps with 0xFFFF for monolithic binary file with no addressing.
+//
+-HFFFF
+
+//
+// Skip CRC & SHDW when calculating the CRC.
+//
+-J2,crc=8005,=0804-_BANK7_END
+
+//
+////////////////////////////////////////////////////////////////////////////////

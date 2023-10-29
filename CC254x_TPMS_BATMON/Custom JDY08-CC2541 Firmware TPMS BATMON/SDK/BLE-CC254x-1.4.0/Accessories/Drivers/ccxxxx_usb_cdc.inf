@@ -1,0 +1,100 @@
+;
+; Texas Instruments CCxxxx USB Serial Port Setup File
+;
+; Based on Windows USB CDC ACM Setup File
+; Copyright (c) 2000 Microsoft Corporation
+; Copyright (c) 2013 Texas Instruments Inc
+
+[Version]
+Signature="$Windows NT$"
+Class=Ports
+ClassGuid={4D36E978-E325-11CE-BFC1-08002BE10318}
+Provider=%PROVIDER%
+DriverVer=04/05/2013,1.2.0.0
+CatalogFile=ccxxxx_usb_cdc.cat
+
+[Manufacturer]
+%MFGNAME%=DeviceList,NTx86,NTamd64
+
+
+[DeviceList.NTx86]
+%DESC_SRFEB%    = DriverInstall, USB\VID_0451&PID_16B6
+%DESC_CC2511%   = DriverInstall, USB\VID_0451&PID_16A4
+%DESC_CC1111%   = DriverInstall, USB\VID_0451&PID_16A6
+%DESC_CC2531%   = DriverInstall, USB\VID_0451&PID_16A8
+%DESC_CC2540%   = DriverInstall, USB\VID_0451&PID_16AA
+%DESC_CC2544%   = DriverInstall, USB\VID_0451&PID_16C5
+%DESC_CC2538%   = DriverInstall, USB\VID_0451&PID_16C8
+%DESC_CCXXXXBL% = DriverInstall, USB\VID_0451&PID_16C7
+%DESC_REMOTINP% = DriverInstall, USB\VID_0451&PID_16B1
+
+[DeviceList.NTamd64]
+%DESC_SRFEB%    = DriverInstall, USB\VID_0451&PID_16B6
+%DESC_CC2511%   = DriverInstall, USB\VID_0451&PID_16A4
+%DESC_CC1111%   = DriverInstall, USB\VID_0451&PID_16A6
+%DESC_CC2531%   = DriverInstall, USB\VID_0451&PID_16A8
+%DESC_CC2540%   = DriverInstall, USB\VID_0451&PID_16AA
+%DESC_CC2544%   = DriverInstall, USB\VID_0451&PID_16C5
+%DESC_CC2538%   = DriverInstall, USB\VID_0451&PID_16C8
+%DESC_CCXXXXBL% = DriverInstall, USB\VID_0451&PID_16C7
+%DESC_REMOTINP% = DriverInstall, USB\VID_0451&PID_16B1
+
+
+;------------------------------------------------------------------------------
+;  Windows 32-bit sections
+;------------------------------------------------------------------------------
+
+[DriverInstall.NTx86]
+include=mdmcpq.inf
+CopyFiles=FakeModemCopyFileSection
+AddReg=DriverRegistryKeys
+
+[DriverInstall.NTx86.Services]
+AddService=usbser, 0x00000002, DriverService
+
+
+;------------------------------------------------------------------------------
+;  Windows 64-bit sections
+;------------------------------------------------------------------------------
+
+[DriverInstall.NTamd64]
+include=mdmcpq.inf
+CopyFiles=FakeModemCopyFileSection
+AddReg=DriverRegistryKeys
+
+[DriverInstall.NTamd64.Services]
+AddService=usbser, 0x00000002, DriverService
+
+
+;------------------------------------------------------------------------------
+;
+;------------------------------------------------------------------------------
+
+[DriverRegistryKeys]
+HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
+
+[DriverService]
+DisplayName   = %SERVICE%
+ServiceType   = 1
+StartType     = 3
+ErrorControl  = 1
+ServiceBinary = %12%\usbser.sys
+
+
+;------------------------------------------------------------------------------
+;  String Definitions
+;------------------------------------------------------------------------------
+
+[Strings]
+PROVIDER      = "Texas Instruments"
+MFGNAME       = "Texas Instruments"
+SERVICE       = "TI USB CDC Driver"
+DESC_SRFEB    = "TI SmartRFEB USB CDC Serial Port"
+DESC_CC1111   = "TI CC1111 USB CDC Serial Port"
+DESC_CC2511   = "TI CC2511 USB CDC Serial Port"
+DESC_CC2531   = "TI CC2531 USB CDC Serial Port"
+DESC_CC2538   = "TI CC2538 USB CDC Serial Port"
+DESC_CC2540   = "TI CC2540 USB CDC Serial Port"
+DESC_CC2544   = "TI CC2544 USB CDC Serial Port"
+DESC_CCXXXXBL = "TI CCxxxx Generic USB CDC Boot Loader"
+DESC_REMOTINP = "RemoTI Network Processor"

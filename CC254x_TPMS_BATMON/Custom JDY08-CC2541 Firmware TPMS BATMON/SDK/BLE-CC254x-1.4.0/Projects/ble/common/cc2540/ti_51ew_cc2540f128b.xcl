@@ -1,0 +1,281 @@
+/**************************************************************************************************
+  Filename:       ti_51ew_cc2540bf128.xcl
+  Revised:        $Date$
+  Revision:       $Revision: 22814 $
+
+  Description:    This is a linker command line file for the IAR XLINK tool for the
+                  CC2540 SoC where the General Options
+                  for location for constants and strings is "ROM mapped as data".
+
+
+  Copyright 2011 Texas Instruments Incorporated. All rights reserved.
+
+  IMPORTANT: Your use of this Software is limited to those specific rights
+  granted under the terms of a software license agreement between the user
+  who downloaded the software, his/her employer (which must be your employer)
+  and Texas Instruments Incorporated (the "License").  You may not use this
+  Software unless you agree to abide by the terms of the License. The License
+  limits your use, and you acknowledge, that the Software may not be modified,
+  copied or distributed unless embedded on a Texas Instruments microcontroller
+  or used solely and exclusively in conjunction with a Texas Instruments radio
+  frequency transceiver, which is integrated into your product.  Other than for
+  the foregoing purpose, you may not use, reproduce, copy, prepare derivative
+  works of, modify, distribute, perform, display or sell this Software and/or
+  its documentation for any purpose.
+
+  YOU FURTHER ACKNOWLEDGE AND AGREE THAT THE SOFTWARE AND DOCUMENTATION ARE
+  PROVIDED “AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED,
+  INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY, TITLE,
+  NON-INFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT SHALL
+  TEXAS INSTRUMENTS OR ITS LICENSORS BE LIABLE OR OBLIGATED UNDER CONTRACT,
+  NEGLIGENCE, STRICT LIABILITY, CONTRIBUTION, BREACH OF WARRANTY, OR OTHER
+  LEGAL EQUITABLE THEORY ANY DIRECT OR INDIRECT DAMAGES OR EXPENSES
+  INCLUDING BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT, PUNITIVE
+  OR CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF PROCUREMENT
+  OF SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
+  (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
+
+  Should you have any questions regarding your right to use this Software,
+  contact Texas Instruments Incorporated at www.TI.com.
+
+**************************************************************************************************/
+
+////////////////////////////////////////////////////////////////////////////////
+//    based on lnk51ew_CC2540F128_banked.xcl: linker command file for IAR Embedded Workbench IDE
+//    Generated: Mon May 24 00:00:01 +0200 2010
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Segment limits
+//  ==============
+//
+//    IDATA
+//    -----
+-D_IDATA0_START=0x00
+-D_IDATA0_END=0xFF
+//
+//    PDATA
+//    -----
+// We select 256 bytes of (I)XDATA memory that can be used as PDATA (see also "PDATA page setup" below)
+-D_PDATA0_START=0x1E00
+-D_PDATA0_END=0x1EFF
+//
+//
+//    IXDATA
+//    ------
+-D_IXDATA0_START=0x0001       // Skip address 0x0000 (to avoid ambiguities with NULL pointer)
+-D_IXDATA0_END=0x1EFF         // CC2540F128 has 8 kB RAM (NOTE: 256 bytes are used for IDATA)
+//
+//
+//    XDATA
+//    -----
+-D_XDATA0_START=_IXDATA0_START
+-D_XDATA0_END=_IXDATA0_END
+//
+//    NEAR CODE
+//    ---------
+-D_NEAR_CODE_START=0x0000
+//
+//  Special SFRs
+//  ============
+//
+//    CODE bank setup
+//    ---------------
+-D_FIRST_BANK_ADDR=0x10000    // Offset fix for this part's unconventional bank numbering (root bank is called "bank 0")
+//
+//    Register bank setup
+//    -------------------
+-D?REGISTER_BANK=0x0          // Sets default register bank (0,1,2,3)
+-D_REGISTER_BANK_START=0x0    // Start address for default register bank (0x0, 0x8, 0x10, 0x18)
+//
+//    PDATA page setup
+//    ----------------
+-D?PBANK_NUMBER=0x1E          // High byte of 16-bit address to the PDATA area
+//
+//    Virtual register setup
+//    ----------------------
+-D_BREG_START=0x00
+-D?VB=0x20
+-D?ESP=0x9B                   //Extended stack pointer register location
+////////////////////////////////////////////////////////////////////////////////
+//
+//  IDATA memory
+//  ============
+-Z(BIT)BREG=_BREG_START
+-Z(BIT)BIT_N=0-7F
+-Z(DATA)REGISTERS+8=_REGISTER_BANK_START
+-Z(DATA)BDATA_Z,BDATA_N,BDATA_I=20-2F
+-Z(DATA)VREG+_NR_OF_VIRTUAL_REGISTERS=08-7F
+-Z(DATA)PSP,XSP=08-7F
+-Z(DATA)DOVERLAY=08-7F
+-Z(DATA)DATA_I,DATA_Z,DATA_N=08-7F
+-U(IDATA)0-7F=(DATA)0-7F
+-Z(IDATA)IDATA_I,IDATA_Z,IDATA_N=08-_IDATA0_END
+-Z(IDATA)ISTACK+_IDATA_STACK_SIZE#08-_IDATA0_END
+-Z(IDATA)IOVERLAY=08-FF
+//
+//  ROM memory
+//  ==========
+//
+//    Top of memory
+//    -------------
+-Z(CODE)INTVEC=0
+-Z(CODE)CSTART=_NEAR_CODE_START-(_CODEBANK_START-1)
+//
+//    Initializers
+//    ------------
+-Z(CODE)BIT_ID,BDATA_ID,DATA_ID,IDATA_ID,IXDATA_ID,PDATA_ID,XDATA_ID=_NEAR_CODE_START-(_CODEBANK_START-1)
+//
+//
+-D_SLEEP_CODE_SPACE_START=(_CODEBANK_START-8)
+-D_SLEEP_CODE_SPACE_END=(_CODEBANK_START-1)
+-Z(CODE)SLEEP_CODE=_SLEEP_CODE_SPACE_START-_SLEEP_CODE_SPACE_END
+//
+//    Program memory
+//    --------------
+-Z(CODE)BANK_RELAYS,RCODE,DIFUNCT,CODE_C,CODE_N,NEAR_CODE=_NEAR_CODE_START-(_CODEBANK_START-1)
+//
+// Setup for constants located in code memory:
+//
+// Define segments for const data in flash.
+// First the segment with addresses as used by the program (flash mapped as XDATA)
+-P(CONST)XDATA_ROM_C=0x8000-0xFFFF
+//
+// Then the segment with addresses as put in the hex file (flash bank 1)
+-P(CODE)XDATA_ROM_C_FLASH=0x18000-0x1FFFF
+//
+// Finally link these segments (XDATA_ROM_C_FLASH is the initializer segment for XDATA_ROM_C,
+// we map the flash in the XDATA address range instead of copying the data to RAM)
+-QXDATA_ROM_C=XDATA_ROM_C_FLASH
+//
+//    Banked code
+//    -----------
+-P(CODE)BANKED_CODE=_NEAR_CODE_START-(_CODEBANK_START-1),[(_CODEBANK_START+_FIRST_BANK_ADDR)-(_CODEBANK_END+_FIRST_BANK_ADDR)]*_NR_OF_BANKS+10000
+//
+//    Checksum
+//    --------
+-Z(CODE)CHECKSUM#(_CODEBANK_START-1)
+//
+//  XDATA memory
+//  ============
+//
+//    Stacks located in XDATA
+//    -----------------------
+-Z(XDATA)EXT_STACK+_EXTENDED_STACK_SIZE=_EXTENDED_STACK_START
+-Z(XDATA)PSTACK+_PDATA_STACK_SIZE=_PDATA0_START-_PDATA0_END
+-Z(XDATA)XSTACK+_XDATA_STACK_SIZE=_XDATA0_START-_XDATA0_END
+//
+//    PDATA - data memory
+//    -------------------
+-Z(XDATA)PDATA_Z,PDATA_I=_PDATA0_START-_PDATA0_END
+-P(XDATA)PDATA_N=_PDATA0_START-_PDATA0_END
+//
+//    XDATA - data memory
+//    -------------------
+-Z(XDATA)IXDATA_Z,IXDATA_I=_IXDATA0_START-_IXDATA0_END
+-P(XDATA)IXDATA_N=_IXDATA0_START-_IXDATA0_END
+-Z(XDATA)XDATA_Z,XDATA_I=_XDATA0_START-_XDATA0_END
+-P(XDATA)XDATA_N=_XDATA0_START-_XDATA0_END
+-Z(XDATA)XDATA_HEAP+_XDATA_HEAP_SIZE=_XDATA0_START-_XDATA0_END
+
+//
+//  Core
+//  ====
+-cx51
+
+
+// Internal flash used for NV address space.
+// ---------------------------
+//
+// Address range for HAL_FLASH_PAGE_SIZE == 2048
+-D_BLENV_ADDRESS_SPACE_START=0x3E800
+-D_BLENV_ADDRESS_SPACE_END=0x3F7FF
+//
+// Address range for HAL_FLASH_PAGE_SIZE == 4096
+//-D_BLENV_ADDRESS_SPACE_START=0x3D000
+//-D_BLENV_ADDRESS_SPACE_END=0x3EFFF
+//
+-Z(CODE)BLENV_ADDRESS_SPACE=_BLENV_ADDRESS_SPACE_START-_BLENV_ADDRESS_SPACE_END
+
+////////////////////////////////////////////////////////////////////////////////
+//
+// Texas Instruments device specific
+// =================================
+//
+//    Building with Intel HEX (.hex) as output format
+//    -----------------------------------------------
+// NOTE: The -M option below is needed when linker output should be in the
+//       "intel-extended" (HEX) file format for banked code model. It translates
+//       the logical addresses used by EW8051/XLINK linker to the correct
+//       physical flash addresses used in output file format. (Without this, the
+//       HEX output file will include 32 kB blocks of empty space/gaps in between
+//       each code bank, and our HEX image will not work.)
+//
+-M(CODE)[(_CODEBANK_START+_FIRST_BANK_ADDR)-(_CODEBANK_END+_FIRST_BANK_ADDR)]*_NR_OF_BANKS+0x10000=0x8000
+//
+// If -M is enabled when building debug output file for C-SPY, the XLINK linker
+// will give a warning [w69] that it has no effect on the output file format.
+// For EW8051 v7.51A and later, we can ignore/supress this warning (earlier
+// versions caused a linker error, so then we had to turn the -M option on/off
+// according to our output file format).
+//
+-ww69=i                       // Ignore linker warning 69
+//
+// Hence for v7.51A and later, we can leave the -M option enabled at all times
+// (as demonstrated above) regardless of output file format. Note however, that
+// with the -M option enabled the code space addresses shown in the linker list
+// file (.map) will also be translated to physical addresses (as found in the HEX
+// file), i.e. not necessarily match the addresses used by EW8051/XLINK linker.
+//
+//
+//    Setup of CODE banks
+//    -------------------
+//
+// We can also define each bank as a segment in order to allow code placement
+// into specific banks, if needed.
+-D_BANK0_START=0x00000         // Note: Unconventional bank numbering on this part:
+-D_BANK0_END=0x07FFF           //       "BANK0" is the root bank/common area!
+//
+-D_BANK1_START=0x18000
+-D_BANK1_END=0x1FFFF
+//
+-D_BANK2_START=0x28000
+-D_BANK2_END=0x2FFFF
+//
+-D_BANK3_START=0x38000
+// End of code space has to match that of OSAL NV page start.
+// Note that in this way, we'll be wasting last page spaced by NV pages,
+// but in order not to overwrite NV pages when downloading new image, the waste
+// is inevitable.
+// New OSAL NV driver will move the NV pages to the last pages not wasting
+// last page itself.
+-D_BANK3_END=(_BLENV_ADDRESS_SPACE_START-1)
+//
+-P(CODE)BANK0=_BANK0_START-_BANK0_END
+-P(CODE)BANK1=_BANK1_START-_BANK1_END
+-P(CODE)BANK2=_BANK2_START-_BANK2_END
+-P(CODE)BANK3=_BANK3_START-_BANK3_END
+//
+//
+//    Flash lock bits
+//    ---------------
+//
+// The CC2540 has its flash lock bits, one bit for each 2048 B flash page, located in
+// the last available flash page, starting 16 bytes from the page end. The number of
+// bytes with flash lock bits depends on the flash size configuration of the CC2540
+// (maximum 16 bytes, i.e. 128 page lock bits, for the CC2540 with 256 kB flash).
+// Note that the bit that controls the debug interface lock is always in the last byte,
+// regardless of flash size.
+//
+-D_FLASH_LOCK_BITS_START=0x3FFF0
+-D_FLASH_LOCK_BITS_END=0x3FFFF
+//
+// Define as segment in case one wants to put something there intentionally (then comment out the trick below)
+-Z(CODE)FLASH_LOCK_BITS=_FLASH_LOCK_BITS_START-_FLASH_LOCK_BITS_END
+//
+// Trick to reserve the FLASH_LOCK_BITS segment from being used as normal CODE, avoiding
+// code to be placed on top of the flash lock bits. If code is placed on address 0x0000,
+// (INTVEC is by default located at 0x0000) then the flash lock bits will be reserved too.
+//
+-U(CODE)0x0000=(CODE)_FLASH_LOCK_BITS_START-_FLASH_LOCK_BITS_END
+//
+////////////////////////////////////////////////////////////////////////////////

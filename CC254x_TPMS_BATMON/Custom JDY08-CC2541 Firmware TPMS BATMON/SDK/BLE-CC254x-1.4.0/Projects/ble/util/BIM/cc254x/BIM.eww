@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<workspace>
+  <project>
+    <path>$WS_DIR$\BIM.ewp</path>
+  </project>
+  <batchBuild>
+    <batchDefinition>
+      <name>All</name>
+      <member>
+        <project>BIM</project>
+        <configuration>CC254xF256</configuration>
+      </member>
+    </batchDefinition>
+  </batchBuild>
+</workspace>
+
+

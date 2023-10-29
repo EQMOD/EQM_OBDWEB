@@ -1,0 +1,100 @@
+
+
+#mzdHomeContainer {
+    font-family:Tipperary,verdana;
+    top:0px;
+    right:0;
+    bottom:0;
+    left:0;
+    height:416px;
+    width:800px;
+    position:absolute;
+}
+
+#mzdInfoHome {
+
+    width: 800px;
+    height: 416px;
+    top: 0px;
+    left: 0px;
+    position: absolute;
+
+}
+
+#mzdInfoHome .MBG1 {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 800px;
+    height: 209px;
+    background: url('http://192.168.0.10/page?var=file&val=/ui/static/b1.jpg') no-repeat scroll center center transparent;
+	z-index: 1;
+
+}
+#mzdInfoHome .MBG2 {
+    position: absolute;
+    left: 0px;
+    top: 208px;
+    width: 800px;
+    height: 208px;
+    background: url('http://192.168.0.10/page?var=file&val=/ui/static/b2.jpg') no-repeat scroll center center transparent;
+	z-index: 1;
+}
+
+#mzdInfoHome .MBG3 {
+    position: absolute;
+    left: 490px;
+    top: 260px;
+	width: 372px;
+    height: 163px;
+    background: url('http://192.168.0.10/page?var=file&val=/ui/static/MCPLogo.png') no-repeat scroll center center transparent;
+	z-index: 5;
+}
+
+
+a.button {
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+      line-height: 45px;
+  font-size: 20px;
+  margin: 4px 2px;
+  cursor: pointer;
+
+}
+
+
+.button1 
+{
+	left: 250px;
+    top: 170px;
+	width: 300px;
+    height: 50px;
+	position: absolute;
+	background-color: #4CAF50;
+	z-index: 10;
+} /* Green */
+
+ .button2 
+{
+	left: 250px;
+    top: 100px;
+	width: 300px;
+    height: 50px;
+	position: absolute;
+	background-color: #008CBA; /* Blue */
+	z-index: 10;
+}
+
+ .button3 
+{
+	left: 250px;
+    top: 240px;
+	width: 300px;
+    height: 50px;
+	position: absolute;
+	background-color: red; /* Blue */
+	z-index: 10;
+}

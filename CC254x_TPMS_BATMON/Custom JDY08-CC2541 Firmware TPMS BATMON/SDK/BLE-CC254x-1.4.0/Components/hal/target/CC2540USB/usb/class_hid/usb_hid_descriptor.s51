@@ -1,0 +1,489 @@
+/***********************************************************************************
+
+  Filename:		usb_hid_descriptor.s51
+
+  Description:	USB descriptor for HID-devices.
+
+***********************************************************************************/
+#define ASM_FILE
+#include "../library/usb_descriptor.h"
+
+
+   MODULE  usb_descriptor
+
+   RSEG    RCODE
+
+   PUBLIC usbDescStart;
+   PUBLIC usbDescEnd;
+   PUBLIC deviceDesc;
+   PUBLIC configDesc;
+   PUBLIC interface0Desc;
+   PUBLIC interface1Desc;
+   PUBLIC interface3Desc;
+   PUBLIC endpoint0Desc;
+   PUBLIC endpoint2Desc;
+   PUBLIC endpoint5Desc;
+   PUBLIC hid0Desc;
+   PUBLIC hid1Desc;
+   PUBLIC hid3Desc;
+   PUBLIC entity0Desc;
+   PUBLIC entity1Desc;
+   PUBLIC entity3Desc;
+   PUBLIC entity0DescEnd;
+   PUBLIC entity1DescEnd;
+   PUBLIC entity3DescEnd;
+   PUBLIC string0Desc;
+   PUBLIC string1Desc;
+   PUBLIC string2Desc;
+   PUBLIC string3Desc;
+   PUBLIC usbDescLut;
+   PUBLIC usbDescLutEnd;
+   PUBLIC usbDblbufLut;
+   PUBLIC usbDblbufLutEnd;
+
+;;-------------------------------------------------------------------------------------------------------
+;; USB descriptors
+
+
+usbDescStart:
+deviceDesc:     ; Device descriptor
+               DB deviceDescEnd - deviceDesc    ; bLength
+               DB DESC_TYPE_DEVICE              ; bDescriptorType
+               DW 0200H                         ; bcdUSB (USB 2.0)
+               DB 00H                           ; bDeviceClass (given by interface)
+               DB 00H                           ; bDeviceSubClass
+               DB 00H                           ; bDeviceProtocol
+               DB EP0_PACKET_SIZE
+               DW 0451H                         ; idVendor (Texas Instruments)
+               DW 16B4H                         ; idProduct (CC2540 HID)
+               DW 0100H                         ; bcdDevice (v1.0)
+               DB 01H                           ; iManufacturer
+               DB 02H                           ; iProduct
+               DB 03H                           ; iSerialNumber
+               DB 01H                           ; bNumConfigurations
+deviceDescEnd:
+
+config1LengthStart:
+configDesc:     ; Configuration descriptor
+                DB configDescEnd - configDesc   ; bLength
+                DB DESC_TYPE_CONFIG             ; bDescriptorType
+                DW config1LengthEnd - config1LengthStart ; wTotalLength
+                DB 03H                          ; bNumInterfaces
+                DB 01H                          ; bConfigurationValue
+                DB 00H                          ; iConfiguration
+                DB 0xA0                         ; bmAttributes (bit 5 remote wakeup)
+                DB 25                           ; bMaxPower (max 2 * 25 = 50 mA)
+configDescEnd:
+
+interface0Desc: ; Keyboard interface descriptor
+                DB interface0DescEnd - interface0Desc ; bLength
+                DB DESC_TYPE_INTERFACE          ; bDescriptorType
+                DB 00H                          ; bInterfaceNumber
+                DB 00H                          ; bAlternateSetting (none)
+                DB 01H                          ; bNumEndpoints
+                DB 03H                          ; bInterfaceClass (HID)
+                DB 01H                          ; bInterfaceSubClass (Boot)
+                DB 01H                          ; bInterfaceProcotol (Keyboard)
+                DB 00H                          ; iInterface
+interface0DescEnd:
+
+hid0Desc:	; Keyboard HID descriptor
+		DB hid0DescEnd - hid0Desc       ; bLength
+		DB DESC_TYPE_HID                ; bDescriptorType
+		DW 0111H                        ; bcdHID (HID v1.11)
+		DB 00H                          ; bCountryCode (not localized)
+		DB 01H                          ; bNumDescriptors
+		DB DESC_TYPE_HIDREPORT          ; bDescriptorType
+		DW entity0DescEnd - entity0Desc ; wDescriptorLength
+hid0DescEnd:
+
+endpoint0Desc:  ; Keyboard endpoint descriptor (EP1 IN)
+                DB endpoint0DescEnd - endpoint0Desc ; bLength
+                DB DESC_TYPE_ENDPOINT           ; bDescriptorType
+                DB 81H                          ; bEndpointAddress
+                DB EP_ATTR_INT                  ; bmAttributes (INT)
+                DW 0008H                        ; wMaxPacketSize
+                DB 0AH                          ; bInterval (10 full-speed frames = 10 ms)
+endpoint0DescEnd:
+
+interface1Desc: ; Consumer interface descriptor
+                DB interface1DescEnd - interface1Desc ; bLength
+                DB DESC_TYPE_INTERFACE          ; bDescriptorType
+                DB 01H                          ; bInterfaceNumber
+                DB 00H                          ; bAlternateSetting (none)
+                DB 01H                          ; bNumEndpoints
+                DB 03H                          ; bInterfaceClass (HID)
+                DB 00H                          ; bInterfaceSubClass (None)
+                DB 00H                          ; bInterfaceProcotol (Don't Care)
+                DB 00H                          ; iInterface
+interface1DescEnd:
+
+hid1Desc:	; Consumer HID descriptor
+                DB hid1DescEnd - hid1Desc       ; bLength
+                DB DESC_TYPE_HID                ; bDescriptor
+                DW 0111H                        ; bcdHID (HID v1.11)
+                DB 00H                          ; bCountryCode (not localized)
+                DB 01H                          ; bNumDescriptors
+                DB DESC_TYPE_HIDREPORT          ; bDescriptorType
+                DW entity1DescEnd - entity1Desc ; wDescriptorLength
+hid1DescEnd:
+
+; Add output end-point if necessary (e.g., LED output)
+; Note that uncommenting the following block itself do not enable output
+; the end-point.
+
+;endpoint1Desc:  ; Keyboard endpoint descriptor (EP1 OUT)
+;                DB endpoint1DescEnd - endpoint1Desc
+;                DB DESC_TYPE_ENDPOINT    ; bDescriptorType
+;                DB 01H                   ; bEndpointAddress
+;                DB EP_ATTR_INT           ; bmAttributes (INT)
+;                DB 01H, 00H              ; wMaxPacketSize
+;                DB 0AH                   ; bInterval
+;endpoint1DescEnd:
+
+endpoint2Desc:  ; Consumer endpoint descriptor (EP2 IN)
+                DB endpoint2DescEnd - endpoint2Desc
+                DB DESC_TYPE_ENDPOINT    ; bDescriptorType
+                DB 82H                   ; bEndpointAddress
+                DB EP_ATTR_INT           ; bmAttributes (INT)
+                DB 0CH, 00H               ; wMaxPacketSize
+                DB 0AH                   ; bInterval
+endpoint2DescEnd:
+
+interface3Desc: ; Mouse interface descriptor
+                DB interface3DescEnd - interface3Desc
+                DB DESC_TYPE_INTERFACE   ; bDescriptorType
+                DB 03H                   ; bInterfaceNumber
+                DB 00H                   ; bAlternateSetting
+                DB 01H                   ; bNumEndpoints
+                DB 03H                   ; bInterfaceClass (HID)
+                DB 01H                   ; bInterfaceSubClass (Boot)
+                DB 02H                   ; bInterfaceProcotol (Mouse)
+                DB 00H                   ; iInterface
+interface3DescEnd:
+
+hid3Desc:	; Mouse HID descriptor
+                DB hid3DescEnd - hid3Desc
+                DB DESC_TYPE_HID         ; bDescriptor (MemPhis)
+                DW 0111H                 ; bcdHID (HID v1.11)
+                DB 00H                   ; bCountryCode
+                DB 01H                   ; bNumDescriptors
+                DB DESC_TYPE_HIDREPORT   ; bDescriptorType
+                DB entity3DescEnd - entity3Desc, 00H
+hid3DescEnd:
+
+endpoint5Desc:  ; Mouse endpoint descriptor (EP4 IN)
+                DB endpoint5DescEnd - endpoint5Desc
+                DB DESC_TYPE_ENDPOINT    ; bDescriptorType
+                DB 84H                   ; bEndpointAddress
+                DB EP_ATTR_INT           ; bmAttributes (INT)
+                DB 0FH, 00H              ; wMaxPacketSize
+                DB 0AH                   ; bInterval
+endpoint5DescEnd:
+
+config1LengthEnd:
+;;-------------------------------------------------------------------------------------------------------
+
+
+;;-------------------------------------------------------------------------------------------------------
+;; String descriptors
+string0Desc:    ; Language ID
+                DB string0DescEnd - string0Desc ; bLength
+                DB DESC_TYPE_STRING             ; bDescriptorType
+                DW 0409H                        ; wLangID (English-US)
+string0DescEnd:
+
+string1Desc:    ; Manufacturer
+                DB string1DescEnd - string1Desc ; bLength
+                DB DESC_TYPE_STRING             ; bDescriptorType
+                DB 'T', 0                       ; unicode string
+                DB 'e', 0
+                DB 'x', 0
+                DB 'a', 0
+                DB 's', 0
+                DB ' ', 0
+                DB 'I', 0
+                DB 'n', 0
+                DB 's', 0
+                DB 't', 0
+                DB 'r', 0
+                DB 'u', 0
+                DB 'm', 0
+                DB 'e', 0
+                DB 'n', 0
+                DB 't', 0
+                DB 's', 0
+string1DescEnd:
+
+string2Desc:    ; Product
+                DB string2DescEnd - string2Desc ; bLength
+                DB DESC_TYPE_STRING             ; bDescriptorType
+                DB 'U', 0                       ; unicode string
+                DB 'S', 0
+                DB 'B', 0
+                DB ' ', 0
+                DB 'C', 0
+                DB 'C', 0
+                DB '2', 0
+                DB '5', 0
+                DB '4', 0
+                DB '0', 0
+                DB ' ', 0
+                DB 'H', 0
+                DB 'I', 0
+                DB 'D', 0
+string2DescEnd:
+
+; To enable multiple HID dongles to connect to a PC,
+; program a unique serial number for each dongle.
+string3Desc:    ; Serial Number
+                DB string3DescEnd - string3Desc
+                DB DESC_TYPE_STRING ; bDescriptorType
+                DB '0', 0
+                DB '0', 0
+                DB '1', 0
+string3DescEnd:
+usbDescEnd:
+;;-------------------------------------------------------------------------------------------------------
+
+
+;;-------------------------------------------------------------------------------------------------------
+;; HID report descriptors
+
+entity0Desc:    ; Keyboard report descriptor (using format for Boot interface descriptor)
+                DB 0005H, 0001H     ; Usage Pg (Generic Desktop)
+                DB 0009H, 0006H     ; Usage (Keyboard)
+                DB 00A1H, 0001H     ; Collection: (Application)
+                                    ;
+                                    ;   8 bits: Modifier keys
+                DB 0095H, 0008H     ;   Report Count (8)
+                DB 0075H, 0001H     ;   Report Size (1)
+                DB 0005H, 0007H     ;   Usage Pg (Key Codes)
+                DB 0019H, 00E0H     ;   Usage Min (224)
+                DB 0029H, 00E7H     ;   Usage Max (231)
+                DB 0015H, 0000H     ;   Log Min (0)
+                DB 0025H, 0001H     ;   Log Max (1)
+                DB 0081H, 0002H     ;   Input: (Data, Variable, Absolute)
+                                    ;
+                                    ;   1 byte: Reserved
+                DB 0095H, 0001H     ;   Report Count (1)
+                DB 0075H, 0008H     ;   Report Size (8)
+                DB 0081H, 0001H     ;   Input: (Constant)
+                                    ;
+                                    ;   5 bits: LED report (NumLock, CapsLock, ScrollLock, Compose, Kana)
+                DB 0095H, 0005H     ;   Report Count (5)
+                DB 0075H, 0001H     ;   Report Size (1)
+                DB 0005H, 0008H     ;   Usage Pg (LEDs)
+                DB 0019H, 0001H     ;   Usage Min (1)
+                DB 0029H, 0005H     ;   Usage Max (5)
+                DB 0091H, 0002H     ;   Output: (Data, Variable, Absolute)
+                                    ;
+                                    ;   3 bits: LED report padding
+                DB 0095H, 0001H     ;   Report Count (1)
+                DB 0075H, 0003H     ;   Report Size (3)
+                DB 0091H, 0001H     ;   Output: (Constant)
+                                    ;
+                                    ;   6 bytes: Keycode1 - Keycode6
+                DB 0095H, 0006H     ;   Report Count (6)
+                DB 0075H, 0008H     ;   Report Size (8)
+                DB 0005H, 0007H     ;   Usage Pg (Key Codes)
+                DB 0019H, 0000H     ;   Usage Min (0)
+                DB 0029H, 0065H     ;   Usage Max (101)
+                DB 0015H, 0000H     ;   Log Min (0)
+                DB 0025H, 0065H     ;   Log Max (101)
+                DB 0081H, 0000H     ;   Input: (Data, Array)
+                                    ;
+                DB 00C0H            ; End Collection
+entity0DescEnd:
+
+entity1Desc:    ; Consumer report descriptor
+                DB 005H, 00CH   ; Usage Pg (Consumer Devices)
+                DB 009H, 001H   ; Usage (Consumer Control)
+                DB 0A1H, 001H   ; Collection (Application)
+                DB 009H, 002H   ;   Usage (Numeric Key Pad)
+                DB 0A1H, 002H   ;   Collection (Logical)
+                DB 005H, 009H   ;     Usage Pg (Button)
+                DB 019H, 001H   ;     Usage Min (Button 1)
+                DB 029H, 00AH   ;     Usage Max (Button 10)
+                DB 015H, 001H   ;     Logical Min (1)
+                DB 025H, 00AH   ;     Logical Max (10)
+                DB 075H, 004H   ;     Report Size (4)
+                DB 095H, 001H   ;     Report Count (1)
+                DB 081H, 000H   ;     Input (Data, Ary, Abs)
+                DB 0C0H         ;   End Collection
+                DB 005H, 00CH   ;   Usage Pg (Consumer Devices)
+                DB 009H, 086H   ;   Usage (Channel)
+                DB 015H, 0FFH   ;   Logical Min (-1)
+                DB 025H, 001H   ;   Logical Max (1)
+                DB 075H, 002H   ;   Report Size (2)
+                DB 095H, 001H   ;   Report Count (1)
+                DB 081H, 046H   ;   Input (Data, Var, Rel, Null)
+                DB 009H, 0E9H   ;   Usage (Volume Up)
+                DB 009H, 0EAH   ;   Usage (Volume Down)
+                DB 015H, 000H   ;   Logical Min (0)
+                DB 075H, 001H   ;   Report Size (1)
+                DB 095H, 002H   ;   Report Count (2)
+                DB 081H, 002H   ;   Input (Data, Var, Abs)
+                DB 009H, 0E2H   ;   Usage (Mute)
+                DB 009H, 030H   ;   Usage (Power)
+                DB 009H, 083H   ;   Usage (Recall Last)
+                DB 009H, 081H   ;   Usage (Assign Selection)
+                DB 009H, 0CDH   ;   Usage (Play/Pause)      // HACKED CHANGE
+                DB 009H, 040H   ;   Usage (Menu)            // HACKED CHANGE
+                DB 009H, 0B2H   ;   Usage (Record)
+                DB 009H, 0B3H   ;   Usage (Fast Forward)
+                DB 009H, 0B4H   ;   Usage (Rewind)
+                DB 009H, 0B5H   ;   Usage (Scan Next)
+                DB 009H, 0B6H   ;   Usage (Scan Prev)
+                DB 009H, 0B7H   ;   Usage (Stop)
+                DB 015H, 001H   ;   Logical Min (1)
+                DB 025H, 00CH   ;   Logical Max (12)
+                DB 075H, 004H   ;   Report Size (4)
+                DB 095H, 001H   ;   Report Count (1)
+                DB 081H, 000H   ;   Input (Data, Ary, Abs)
+                DB 009H, 080H   ;   Usage (Selection)
+                DB 0A1H, 002H   ;   Collection (Logical)
+                DB 005H, 009H   ;     Usage Pg (Button)
+                DB 019H, 001H   ;     Usage Min (Button 1)
+                DB 029H, 003H   ;     Usage Max (Button 3)
+                DB 015H, 001H   ;     Logical Min (1)
+                DB 025H, 003H   ;     Logical Max (3)
+                DB 075H, 002H   ;     Report Size (2)
+                DB 081H, 000H   ;     Input (Data, Ary, Abs)
+                DB 0C0H         ;   End Collection
+                DB 081H, 003H   ;   Input (Const, Var, Abs)
+
+                DB 0C0H         ; End Collection
+entity1DescEnd:
+
+entity3Desc:
+  DB 0x05, 0x01   ;   Usage Page (Generic Desktop)
+  DB 0x09, 0x02   ;   Usage (Mouse)
+  DB 0xA1, 0x01   ;   Collection (Application)
+  DB 0x09, 0x01   ;     Usage (Pointer)
+  DB 0xA1, 0x00   ;     Collection (Physical)
+  DB 0x05, 0x09   ;       Usage Page (Buttons)
+  DB 0x19, 0x01   ;       Usage Minimum (01) - Button 1
+  DB 0x29, 0x03   ;       Usage Maximum (03) - Button 3
+  DB 0x15, 0x00   ;       Logical Minimum (0)
+  DB 0x25, 0x01   ;       Logical Maximum (1)
+  DB 0x75, 0x01   ;       Report Size (1)
+  DB 0x95, 0x03   ;       Report Count (3)
+  DB 0x81, 0x02   ;       Input (Data, Variable, Absolute) - Button states
+  DB 0x75, 0x05   ;       Report Size (5)
+  DB 0x95, 0x01   ;       Report Count (1)
+  DB 0x81, 0x01   ;       Input (Constant) - Padding or Reserved bits
+
+  DB 0x05, 0x01   ;       Usage Page (Generic Desktop)
+  DB 0x09, 0x30   ;       Usage (X)
+  DB 0x09, 0x31   ;       Usage (Y)
+  DB 0x09, 0x38   ;       Usage (Z)
+  DB 0x15, 0x81   ;       Logical Minimum (-127)
+  DB 0x25, 0x7F   ;       Logical Maximum (127)
+  DB 0x75, 0x08   ;       Report Size (8)
+  DB 0x95, 0x03   ;       Report Count (3)
+  DB 0x81, 0x06   ;       Input (Data, Variable, Relative) - X & Y coordinate
+
+  DB 0xC0         ;   End Collection
+  DB 0xC0         ;   End Collection
+entity3DescEnd:
+
+;;-------------------------------------------------------------------------------------------------------
+
+
+;;-------------------------------------------------------------------------------------------------------
+;; Look-up table for descriptors that are not returned through requests for DSC_DEVICE, DSC_CONFIG or
+;; DSC_STRING (e.g. HID report descriptors)
+usbDescLut:     DB DESC_TYPE_HIDREPORT, 00H         ; value (MSB:LSB)
+                DB 00H,                 00H         ; index (MSB:LSB)
+                DW entity0Desc                      ; pDesc
+                DW entity0DescEnd - entity0Desc     ; length
+
+                DB DESC_TYPE_HIDREPORT, 00H         ; value (MSB:LSB)
+                DB 00H,                 01H         ; index (MSB:LSB)
+                DW entity1Desc                      ; pDesc
+                DW entity1DescEnd - entity1Desc     ; length
+
+                DB DESC_TYPE_HIDREPORT, 00H         ; value (MSB:LSB)
+                DB 00H,        03H                  ; index (MSB:LSB)
+                DW entity3Desc                      ; pDesc
+                DW entity3DescEnd - entity3Desc     ; length
+
+                DB DESC_TYPE_HID,       00H         ; value (MSB:LSB)
+                DB 00H,                 00H         ; index (MSB:LSB)
+                DW hid0Desc                         ; pDesc
+                DW hid0DescEnd - hid0Desc           ; length
+
+                DB DESC_TYPE_HID,       00H         ; value (MSB:LSB)
+                DB 00H,                 01H         ; index (MSB:LSB)
+                DW hid1Desc                         ; pDesc
+                DW hid1DescEnd - hid1Desc           ; length
+
+                DB DESC_TYPE_HID, 00H               ; value (MSB:LSB)
+                DB 00H,        03H                  ; index (MSB:LSB)
+                DW hid3Desc                         ; pDesc
+                DW hid3DescEnd - hid3Desc           ; length
+
+usbDescLutEnd:
+;;-------------------------------------------------------------------------------------------------------
+
+
+;;-------------------------------------------------------------------------------------------------------
+;; Look-up table for double buffer settings (one set of bit masks for each defined interface)
+usbDblbufLut:   DW interface0Desc  ; pInterface
+                DB 00H             ; inMask
+                DB 00H             ; outMask
+
+                DW interface1Desc  ; pInterface
+                DB 00H             ; inMask
+                DB 00H             ; outMask
+
+                DW interface3Desc  ; pInterface
+                DB 00H             ; inMask
+                DB 00H             ; outMask
+usbDblbufLutEnd:
+;;-------------------------------------------------------------------------------------------------------
+
+
+                END;
+
+/*
++------------------------------------------------------------------------------
+|  Copyright 2004-2013 Texas Instruments Incorporated. All rights reserved.
+|
+|  IMPORTANT: Your use of this Software is limited to those specific rights
+|  granted under the terms of a software license agreement between the user who
+|  downloaded the software, his/her employer (which must be your employer) and
+|  Texas Instruments Incorporated (the "License"). You may not use this Software
+|  unless you agree to abide by the terms of the License. The License limits
+|  your use, and you acknowledge, that the Software may not be modified, copied
+|  or distributed unless embedded on a Texas Instruments microcontroller or used
+|  solely and exclusively in conjunction with a Texas Instruments radio
+|  frequency transceiver, which is integrated into your product. Other than for
+|  the foregoing purpose, you may not use, reproduce, copy, prepare derivative
+|  works of, modify, distribute, perform, display or sell this Software and/or
+|  its documentation for any purpose.
+|
+|  YOU FURTHER ACKNOWLEDGE AND AGREE THAT THE SOFTWARE AND DOCUMENTATION ARE
+|  PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED,
+|  INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY, TITLE,
+|  NON-INFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT SHALL
+|  TEXAS INSTRUMENTS OR ITS LICENSORS BE LIABLE OR OBLIGATED UNDER CONTRACT,
+|  NEGLIGENCE, STRICT LIABILITY, CONTRIBUTION, BREACH OF WARRANTY, OR OTHER
+|  LEGAL EQUITABLE THEORY ANY DIRECT OR INDIRECT DAMAGES OR EXPENSES INCLUDING
+|  BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT, PUNITIVE OR
+|  CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF PROCUREMENT OF
+|  SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
+|  (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
+|
+|  Should you have any questions regarding your right to use this Software,
+|  contact Texas Instruments Incorporated at www.TI.com.
+|
++------------------------------------------------------------------------------
+|The default USB descriptor defines a minimum configuration, with no endpoints
+|apart from EP0. The application can define 3 IN and OUT endpoints, and override
+|the configuration and interface descriptor (only one of each).
+|The device and string descriptors are locked.
++------------------------------------------------------------------------------*/
+
+

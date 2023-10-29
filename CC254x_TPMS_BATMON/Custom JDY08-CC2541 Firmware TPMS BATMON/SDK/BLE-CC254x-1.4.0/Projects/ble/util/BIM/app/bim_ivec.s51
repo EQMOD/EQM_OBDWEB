@@ -1,0 +1,486 @@
+/**************************************************************************************************
+  Filename:       bim_intvec.s51
+  Revised:        $Date: 2012-09-12 10:59:31 -0700 (Wed, 12 Sep 2012) $
+  Revision:       $Revision: 31516 $
+
+  Description:    Image Boot Manager INTVEC re-direct to Image-A or Image-B.
+
+
+  Copyright 2012 Texas Instruments Incorporated. All rights reserved.
+
+  IMPORTANT: Your use of this Software is limited to those specific rights
+  granted under the terms of a software license agreement between the user
+  who downloaded the software, his/her employer (which must be your employer)
+  and Texas Instruments Incorporated (the "License").  You may not use this
+  Software unless you agree to abide by the terms of the License. The License
+  limits your use, and you acknowledge, that the Software may not be modified,
+  copied or distributed unless embedded on a Texas Instruments microcontroller
+  or used solely and exclusively in conjunction with a Texas Instruments radio
+  frequency transceiver, which is integrated into your product.  Other than for
+  the foregoing purpose, you may not use, reproduce, copy, prepare derivative
+  works of, modify, distribute, perform, display or sell this Software and/or
+  its documentation for any purpose.
+
+  YOU FURTHER ACKNOWLEDGE AND AGREE THAT THE SOFTWARE AND DOCUMENTATION ARE
+  PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED,
+  INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY, TITLE,
+  NON-INFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT SHALL
+  TEXAS INSTRUMENTS OR ITS LICENSORS BE LIABLE OR OBLIGATED UNDER CONTRACT,
+  NEGLIGENCE, STRICT LIABILITY, CONTRIBUTION, BREACH OF WARRANTY, OR OTHER
+  LEGAL EQUITABLE THEORY ANY DIRECT OR INDIRECT DAMAGES OR EXPENSES
+  INCLUDING BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT, PUNITIVE
+  OR CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF PROCUREMENT
+  OF SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
+  (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
+
+  Should you have any questions regarding your right to use this Software,
+  contact Texas Instruments Incorporated at www.TI.com.
+**************************************************************************************************/
+
+/* ------------------------------------------------------------------------------------------------
+ *                                      Constants
+ * ------------------------------------------------------------------------------------------------
+ */
+
+; Image-A/B INTVEC Table relocation addresses set by the linker files of each image.
+IMGA  EQU  0x0830
+IMGB  EQU  0x4030
+
+; Image-A must initialize this IDATA location in its reset vector handler with zero or non-zero.
+; Image-B must reserve & not use this location.
+ISEL  EQU  0x09
+
+SAVE  EQU  0x08  ; This IDATA location must be reserved by the linker files of both images.
+
+/* ------------------------------------------------------------------------------------------------
+ *                                       Macros
+ * ------------------------------------------------------------------------------------------------
+ */
+
+IV03  EQU  IMGA + 0x03
+IV0b  EQU  IMGA + 0x0b
+IV13  EQU  IMGA + 0x13
+IV1b  EQU  IMGA + 0x1b
+IV23  EQU  IMGA + 0x23
+IV2b  EQU  IMGA + 0x2b
+IV33  EQU  IMGA + 0x33
+IV3b  EQU  IMGA + 0x3b
+IV43  EQU  IMGA + 0x43
+IV4b  EQU  IMGA + 0x4b
+IV53  EQU  IMGA + 0x53
+IV5b  EQU  IMGA + 0x5b
+IV63  EQU  IMGA + 0x63
+IV6b  EQU  IMGA + 0x6b
+IV73  EQU  IMGA + 0x73
+IV7b  EQU  IMGA + 0x7b
+IV83  EQU  IMGA + 0x83
+IV8b  EQU  IMGA + 0x8b
+
+/* ------------------------------------------------------------------------------------------------
+ *                              Assembly function prototypes.
+ * ------------------------------------------------------------------------------------------------
+ */
+
+  PUBLIC  __ivec_03
+  PUBLIC  __ivec_0b
+  PUBLIC  __ivec_13
+  PUBLIC  __ivec_1b
+  PUBLIC  __ivec_23
+  PUBLIC  __ivec_2b
+  PUBLIC  __ivec_33
+  PUBLIC  __ivec_3b
+  PUBLIC  __ivec_43
+  PUBLIC  __ivec_4b
+  PUBLIC  __ivec_53
+  PUBLIC  __ivec_5b
+  PUBLIC  __ivec_63
+  PUBLIC  __ivec_6b
+  PUBLIC  __ivec_73
+  PUBLIC  __ivec_7b
+  PUBLIC  __ivec_83
+  PUBLIC  __ivec_8b
+
+  REQUIRE __ivec_03
+  REQUIRE __ivec_0b
+  REQUIRE __ivec_13
+  REQUIRE __ivec_1b
+  REQUIRE __ivec_23
+  REQUIRE __ivec_2b
+  REQUIRE __ivec_33
+  REQUIRE __ivec_3b
+  REQUIRE __ivec_43
+  REQUIRE __ivec_4b
+  REQUIRE __ivec_53
+  REQUIRE __ivec_5b
+  REQUIRE __ivec_63
+  REQUIRE __ivec_6b
+  REQUIRE __ivec_73
+  REQUIRE __ivec_7b
+  REQUIRE __ivec_83
+  REQUIRE __ivec_8b
+
+/* ------------------------------------------------------------------------------------------------
+ *                                    8051 INTVEC Table
+ * ------------------------------------------------------------------------------------------------
+ */
+
+  COMMON  INTVEC:CODE:ROOT(0)
+
+
+  org     0x0003      ; RF FIFO
+  clr     0xa8.7      ; Global EA disable.
+  mov     SAVE,A      ; Save Register A to reserved IDATA location 'SAVE'.
+  ajmp    __ivec_03   ; Jump to INTVEC relay logic.
+
+  org     0x000b      ; ADC
+  clr     0xa8.7      ; 3 cycles
+  mov     SAVE,A      ; 2 cycles
+  ajmp    __ivec_0b   ; 3 cycles
+
+  org     0x0013      ; USART0 RX
+  clr     0xa8.7      ;
+  mov     SAVE,A      ;
+  ajmp    __ivec_13   ;
+
+  org     0x001b      ; USART1 RX
+  clr     0xa8.7      ;
+  mov     SAVE,A      ;
+  ajmp    __ivec_1b   ;
+
+  org     0x0023      ; AES
+  clr     0xa8.7      ;
+  mov     SAVE,A      ;
+  ajmp    __ivec_23   ;
+
+  org     0x002b      ; Sleep Timer
+  clr     0xa8.7      ;
+  mov     SAVE,A      ;
+  ajmp    __ivec_2b   ;
+
+  org     0x0033      ; Port2
+  clr     0xa8.7      ;
+  mov     SAVE,A      ;
+  ajmp    __ivec_33   ;
+
+  org     0x003b      ; USART0 TX
+  clr     0xa8.7      ;
+  mov     SAVE,A      ;
+  ajmp    __ivec_3b   ;
+
+  org     0x0043      ; DMA
+  clr     0xa8.7      ;
+  mov     SAVE,A      ;
+  ajmp    __ivec_43   ;
+
+  org     0x004b      ; Timer1
+  clr     0xa8.7      ;
+  mov     SAVE,A      ;
+  ajmp    __ivec_4b   ;
+
+  org     0x0053      ; Timer2
+  clr     0xa8.7      ;
+  mov     SAVE,A      ;
+  ajmp    __ivec_53   ;
+
+  org     0x005b      ; Timer3
+  clr     0xa8.7      ;
+  mov     SAVE,A      ;
+  ajmp    __ivec_5b   ;
+
+  org     0x0063      ; Timer4
+  clr     0xa8.7      ;
+  mov     SAVE,A      ;
+  ajmp    __ivec_63   ;
+
+  org     0x006b      ; Port0
+  clr     0xa8.7      ;
+  mov     SAVE,A      ;
+  ajmp    __ivec_6b   ;
+
+  org     0x0073      ; USART1 TX
+  clr     0xa8.7      ;
+  mov     SAVE,A      ;
+  ajmp    __ivec_73   ;
+
+  org     0x007b      ; Port1
+  clr     0xa8.7      ;
+  mov     SAVE,A      ;
+  ajmp    __ivec_7b   ;
+
+  org     0x0083      ; RF General
+  clr     0xa8.7      ;
+  mov     SAVE,A      ;
+  ajmp    __ivec_83   ;
+
+  org     0x008b      ; WatchDog
+  clr     0xa8.7      ;
+  mov     SAVE,A      ;
+  ajmp    __ivec_8b   ;
+
+
+/* ------------------------------------------------------------------------------------------------
+ *                                 INTVEC Relay to Image-A/B
+ * ------------------------------------------------------------------------------------------------
+ */
+
+  RSEG    RCODE
+
+
+__ivec_03:
+  mov     A,ISEL      ; Move the Image-Select variable from XDATA to Register A.
+  jz      __imgA_03   ; If Image-Select == 0, then jump to Image-A, else jump to Image-B.
+
+  mov     A,SAVE      ; Restore the saved value of Register A.
+  setb    0xa8.7      ; Global EA re-enable.
+  ljmp    IMGB + 0x03 ; Jump to the corresponding Image-B INTVEC handler.
+
+__imgA_03
+  mov     A,SAVE
+  setb    0xa8.7
+  ljmp    IV03
+
+
+__ivec_0b:
+  mov     A,ISEL      ; 3 cycles
+  jz      __imgA_0b   ; 3 cycles
+
+  mov     A,SAVE      ; 3 cycles
+  setb    0xa8.7      ; 3 cycles
+  ljmp    IMGB + 0x0b
+
+__imgA_0b
+  mov     A,SAVE
+  setb    0xa8.7
+  ljmp    IV0b
+
+
+__ivec_13:
+  mov     A,ISEL
+  jz      __imgA_13
+
+  mov     A,SAVE
+  setb    0xa8.7
+  ljmp    IMGB + 0x13
+
+__imgA_13
+  mov     A,SAVE
+  setb    0xa8.7
+  ljmp    IV13
+
+
+__ivec_1b:
+  mov     A,ISEL
+  jz      __imgA_1b
+
+  mov     A,SAVE
+  setb    0xa8.7
+  ljmp    IMGB + 0x1b
+
+__imgA_1b
+  mov     A,SAVE
+  setb    0xa8.7
+  ljmp    IV1b
+
+
+__ivec_23:
+  mov     A,ISEL
+  jz      __imgA_23
+
+  mov     A,SAVE
+  setb    0xa8.7
+  ljmp    IMGB + 0x23
+
+__imgA_23
+  mov     A,SAVE
+  setb    0xa8.7
+  ljmp    IV23
+
+
+__ivec_2b:
+  mov     A,ISEL
+  jz      __imgA_2b
+
+  mov     A,SAVE
+  setb    0xa8.7
+  ljmp    IMGB + 0x2b
+
+__imgA_2b
+  mov     A,SAVE
+  setb    0xa8.7
+  ljmp    IV2b
+
+
+__ivec_33:
+  mov     A,ISEL
+  jz      __imgA_33
+
+  mov     A,SAVE
+  setb    0xa8.7
+  ljmp    IMGB + 0x33
+
+__imgA_33
+  mov     A,SAVE
+  setb    0xa8.7
+  ljmp    IV33
+
+
+__ivec_3b:
+  mov     A,ISEL
+  jz      __imgA_3b
+
+  mov     A,SAVE
+  setb    0xa8.7
+  ljmp    IMGB + 0x3b
+
+__imgA_3b
+  mov     A,SAVE
+  setb    0xa8.7
+  ljmp    IV3b
+
+
+__ivec_43:
+  mov     A,ISEL
+  jz      __imgA_43
+
+  mov     A,SAVE
+  setb    0xa8.7
+  ljmp    IMGB + 0x43
+
+__imgA_43
+  mov     A,SAVE
+  setb    0xa8.7
+  ljmp    IV43
+
+
+__ivec_4b:
+  mov     A,ISEL
+  jz      __imgA_4b
+
+  mov     A,SAVE
+  setb    0xa8.7
+  ljmp    IMGB + 0x4b
+
+__imgA_4b
+  mov     A,SAVE
+  setb    0xa8.7
+  ljmp    IV4b
+
+
+__ivec_53:
+  mov     A,ISEL
+  jz      __imgA_53
+
+  mov     A,SAVE
+  setb    0xa8.7
+  ljmp    IMGB + 0x53
+
+__imgA_53
+  mov     A,SAVE
+  setb    0xa8.7
+  ljmp    IV53
+
+
+__ivec_5b:
+  mov     A,ISEL
+  jz      __imgA_5b
+
+  mov     A,SAVE
+  setb    0xa8.7
+  ljmp    IMGB + 0x5b
+
+__imgA_5b
+  mov     A,SAVE
+  setb    0xa8.7
+  ljmp    IV5b
+
+
+__ivec_63:
+  mov     A,ISEL
+  jz      __imgA_63
+
+  mov     A,SAVE
+  setb    0xa8.7
+  ljmp    IMGB + 0x63
+
+__imgA_63
+  mov     A,SAVE
+  setb    0xa8.7
+  ljmp    IV63
+
+
+__ivec_6b:
+  mov     A,ISEL
+  jz      __imgA_6b
+
+  mov     A,SAVE
+  setb    0xa8.7
+  ljmp    IMGB + 0x6b
+
+__imgA_6b
+  mov     A,SAVE
+  setb    0xa8.7
+  ljmp    IV6b
+
+
+__ivec_73:
+  mov     A,ISEL
+  jz      __imgA_73
+
+  mov     A,SAVE
+  setb    0xa8.7
+  ljmp    IMGB + 0x73
+
+__imgA_73
+  mov     A,SAVE
+  setb    0xa8.7
+  ljmp    IV73
+
+
+__ivec_7b:
+  mov     A,ISEL
+  jz      __imgA_7b
+
+  mov     A,SAVE
+  setb    0xa8.7
+  ljmp    IMGB + 0x7b
+
+__imgA_7b
+  mov     A,SAVE
+  setb    0xa8.7
+  ljmp    IV7b
+
+
+__ivec_83:
+  mov     A,ISEL
+  jz      __imgA_83
+
+  mov     A,SAVE
+  setb    0xa8.7
+  ljmp    IMGB + 0x83
+
+__imgA_83
+  mov     A,SAVE
+  setb    0xa8.7
+  ljmp    IV83
+
+
+__ivec_8b:
+  mov     A,ISEL
+  jz      __imgA_8b
+
+  mov     A,SAVE
+  setb    0xa8.7
+  ljmp    IMGB + 0x8b
+
+__imgA_8b
+  mov     A,SAVE
+  setb    0xa8.7
+  ljmp    IV8b
+
+
+__relay_err
+  nop     ; Debugging catch-all - should never get here.
+  ljmp    __relay_err
+
+  END
+

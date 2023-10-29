@@ -1,0 +1,79 @@
+
+#BatmonContainer {
+    font-family:Tipperary,verdana;
+    top:0px;
+    right:0;
+    bottom:0;
+    left:0;
+    height:416px;
+    width:800px;
+    position:relative;
+    font-family: 'Titillium', Arial, sans-serif;
+}
+
+#BatmonContainer .MBG1 {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 800px;
+    height: 209px;
+    background: url('http://192.168.0.10/page?var=file&val=/ui/BATMON/img/BATMONbg1.jpg') no-repeat scroll center center transparent;
+}
+#BatmonContainer .MBG2 {
+    position: absolute;
+    left: 0px;
+    top: 208px;
+    width: 800px;
+    height: 208px;
+    background: url('http://192.168.0.10/page?var=file&val=/ui/BATMON/img/BATMONbg2.jpg') no-repeat scroll center center transparent;
+}
+/* 
+
+/* ************
+ * Info Layer */
+#BatmonContainer #InfoLayer {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    font-family: 'Titillium', Arial, sans-serif;
+}
+/* Bat Text Containers */
+#BatmonContainer #InfoLayer .BatMonVAL {
+	position: relative;
+    left: 0px;
+    top: 140px;
+	font-size: 120px;
+	text-align: center;
+	color: yellow;
+	z-index: 90;
+}
+
+a.button {
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+      line-height: 28px;
+  font-size: 20px;
+  margin: 4px 2px;
+  cursor: pointer;
+
+}
+
+
+.button1 
+{
+	left: 670px;
+    top: 370px;
+	width: 100px;
+    height: 30px;
+	position: absolute;
+	background-color: grey;
+	z-index: 10;
+} 
