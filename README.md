@@ -26,6 +26,22 @@ The same BLE module can be loaded with a UART-BLE for ELM327 AT command compatib
 
 ![image](https://github.com/EQMOD/EQM_OBDWEB/assets/29789200/8c971291-0b14-477d-abf0-11e375a93849)
 
+WEB-DOCROOT FILESYSTEM
+
+EQM_OBDWEB uses the SD Card as Temporary Storage, The actual files are actually loaded to the ESP32 Wrover SPIFFs memory for faster page load time. It also utilizes
+the PSRAM as a temporary buffer for SPIFFs loading up to HTTP delivery. SPIFFS file storage is initially formatted and populated with contents coming from the SD-Card.
+This is automatically done once the code detects if the SD-Card doesnt have the 'lock.file' inside. It copies the content of the SD-Card to the SPIFFs storage and
+then creates a 'lock.file' on the SD-card to prevent succeeding SPIFFS formatting and file copy.
+
+
+![image](https://github.com/EQMOD/EQM_OBDWEB/assets/29789200/834baed4-5b0b-4a7f-9e21-36f9c00129a6)
+
+![image](https://github.com/EQMOD/EQM_OBDWEB/assets/29789200/62d68b79-26b9-4151-946a-aeec21a278c1)
+
+![image](https://github.com/EQMOD/EQM_OBDWEB/assets/29789200/8ed34b38-b398-489b-8261-c8cbc8cf7dad)
+
+
+
 Here is the Connection diagram from the ESP32 Wrover with SD Card Reader and JDY08 BLE Module
 
 ![image](https://github.com/EQMOD/EQM_OBDWEB/assets/29789200/64a7ada1-9e7a-4788-9aba-bed030aca00d)
