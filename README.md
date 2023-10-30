@@ -28,9 +28,7 @@ The same BLE module can be loaded with a UART-BLE for ELM327 AT command compatib
 
 WEB-DOCROOT FILESYSTEM
 
-EQM_OBDWEB uses the SD Card as Temporary Storage, The actual files are actually loaded to the ESP32 Wrover SPIFFs memory for faster page load time. It also utilizes
-the PSRAM as a temporary buffer for SPIFFs loading up to HTTP delivery. SPIFFS file storage is initially formatted and populated with contents coming from the SD-Card.
-This is automatically done once the code detects if the SD-Card doesnt have the 'lock.file' inside. It copies the content of the SD-Card to the SPIFFs storage and
+EQM_OBDWEB uses the SD Card as Temporary Storage, The actual WEB DOCROOT files are actually loaded to the ESP32 Wrover SPIFFs memory for faster page load time. It also utilizes the PSRAM as a temporary buffer for SPIFFs loading up to HTTP delivery. SPIFFS file storage is initially formatted and populated with contents coming from the SD-Card. This is automatically done once the code detects if the SD-Card doesnt have the 'lock.file' inside. It copies the content of the SD-Card to the SPIFFs storage and
 then creates a 'lock.file' on the SD-card to prevent succeeding SPIFFS formatting and file copy.
 
 
