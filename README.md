@@ -36,6 +36,11 @@ And here is the suggested development platform (codes included) which provide th
 
 ![image](https://github.com/EQMOD/EQM_OBDWEB/assets/29789200/5004d103-8bce-4605-83f4-3de82ef758c6)
 
+Current firmware codes are stable with ESP32 Version 2.0.5 up to 2.0.12. Seems to be encountering issues on 2.0.13 and 2.0.14 particularly on the Wifi and
+SD Card handlers. This using the ESP32 Wrover (16MB) As the code utilizes the SD Card, the SPIFFS Memory , and the PSRAM.
+
+<img width="957" alt="image" src="https://github.com/EQMOD/EQM_OBDWEB/assets/29789200/55d90e89-64c3-4814-b38f-ec89a1f38a46">
+
 
 SAMPLE WEBUI RENDERS;
 
