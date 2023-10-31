@@ -40,15 +40,15 @@ then creates a 'lock.file' on the SD-card to prevent succeeding SPIFFS formattin
 
 
 
-Here is the Connection diagram from the ESP32 Wrover with SD Card Reader and JDY08 BLE Module
+Here is the Connection diagram of the ESP32 Wrover with SD Card Reader and JDY08 BLE Module
 
 ![image](https://github.com/EQMOD/EQM_OBDWEB/assets/29789200/64a7ada1-9e7a-4788-9aba-bed030aca00d)
 
-Here is the suggested development platform (codes included) which provides the user options to burn firmware on the CC2541 by simply dropping a cc2541.bin file on the SD card.
+Here is the suggested development platform (codes included) which provides the user options flash code on the ESP32 Wrover and to burn firmware on the CC2541 by simply dropping a cc2541.bin file on the SD card.  The EQM_OBDWEB dongle contain codes to flash the CC2541 JDY-08 module. Another option is by flashing the Wrover with a CCloader arduino code and connecting it to a laptop then uploadthe cc2541 firmware using the ccloader windows program.
 
 <img width="897" alt="image" src="https://github.com/EQMOD/EQM_OBDWEB/assets/29789200/714c41b0-87a3-4769-ac86-8fdbf50bd103">
 
-Or by using a separate ARDUINO Board and sketch to burn firmware on the JDY-08 Module using the CCLoader Program
+Using a separate ARDUINO Board and sketch to burn firmware on the JDY-08 Module using the CCLoader Program
 
 https://github.com/EQMOD/EQM_OBDWEB/tree/master/CC254x_TPMS_BATMON/JDY08_CCLoader
 
@@ -66,6 +66,8 @@ Current firmware codes are stable with ESP32 Version 2.0.5 up to 2.0.12. Seems t
 SD Card handlers. This using the ESP32 Wrover (16MB) as the code utilizes the SD Card, the SPIFFS Memory , and the PSRAM.
 
 <img width="957" alt="image" src="https://github.com/EQMOD/EQM_OBDWEB/assets/29789200/55d90e89-64c3-4814-b38f-ec89a1f38a46">
+
+
 
 USER CUSTOMIZABLE WEB PAGES FOR CAR DASHBOARDS OR OTHER CAR METRICS DATA USING HTML/CSS/JS/IMG with live data using websockets.
 Just load your designs to the SD Card;
