@@ -28,7 +28,7 @@ The same BLE module can be loaded with a UART-BLE for ELM327 AT command compatib
 
 WEB-DOCROOT FILESYSTEM
 
-EQM_OBDWEB uses the SD Card as Temporary Storage, The actual WEB DOCROOT files are actually loaded to the ESP32 Wrover SPIFFs memory for faster page load time. It also utilizes the PSRAM as a temporary buffer for SPIFFs loading up to HTTP delivery. SPIFFS file storage is initially formatted and populated with contents coming from the SD-Card. This is automatically done once the code detects if the SD-Card doesnt have the 'lock.file' inside. It copies the content of the SD-Card to the SPIFFs storage and
+EQM_OBDWEB uses the SD Card as temporary storage. The WEB DOCROOT files are loaded to the ESP32 Wrover SPIFFs memory for faster page load time. It also utilizes the PSRAM as a temporary buffer for SPIFFs loading up to HTTP delivery. SPIFFS file storage is initially formatted and populated with contents coming from the SD-Card. This is automatically done once the code detects if the SD-Card doesnt have the 'lock.file' inside. It copies the content of the SD-Card to the SPIFFs storage and
 then creates a 'lock.file' on the SD-card to prevent succeeding SPIFFS formatting and file copy.
 
 
@@ -44,7 +44,7 @@ Here is the Connection diagram from the ESP32 Wrover with SD Card Reader and JDY
 
 ![image](https://github.com/EQMOD/EQM_OBDWEB/assets/29789200/64a7ada1-9e7a-4788-9aba-bed030aca00d)
 
-And here is the suggested development platform (codes included) which provide the user options to burn firmware on the CC2541 by simply dropping a cc2541.bin file on the SD card.
+Here is the suggested development platform (codes included) which provides the user options to burn firmware on the CC2541 by simply dropping a cc2541.bin file on the SD card.
 
 <img width="897" alt="image" src="https://github.com/EQMOD/EQM_OBDWEB/assets/29789200/714c41b0-87a3-4769-ac86-8fdbf50bd103">
 
@@ -63,7 +63,7 @@ EQM_OBDWEB Development platform structure ;
 ![image](https://github.com/EQMOD/EQM_OBDWEB/assets/29789200/5004d103-8bce-4605-83f4-3de82ef758c6)
 
 Current firmware codes are stable with ESP32 Version 2.0.5 up to 2.0.12. Seems to be encountering issues on 2.0.13 and 2.0.14 particularly on the Wifi and
-SD Card handlers. This using the ESP32 Wrover (16MB) As the code utilizes the SD Card, the SPIFFS Memory , and the PSRAM.
+SD Card handlers. This using the ESP32 Wrover (16MB) as the code utilizes the SD Card, the SPIFFS Memory , and the PSRAM.
 
 <img width="957" alt="image" src="https://github.com/EQMOD/EQM_OBDWEB/assets/29789200/55d90e89-64c3-4814-b38f-ec89a1f38a46">
 
@@ -141,7 +141,7 @@ with the following compile settings;
 
 <img width="960" alt="image" src="https://github.com/EQMOD/EQM_OBDWEB/assets/29789200/d99bd190-b4f2-46fa-9959-13d611277ca3">
 
-Formatting and Flashing the SPIFF Memory is initiated by checking if a detected/attached SD Card is without a "lock.file" inside;
+Formatting and flashing the SPIFF Memory is initiated by checking if a detected/attached SD Card doesn't have a "lock.file" inside;
 
 <img width="1920" alt="image" src="https://github.com/EQMOD/EQM_OBDWEB/assets/29789200/af0fd553-99ad-45f9-a32c-b54a19f7b46d">
 
@@ -149,7 +149,7 @@ Formatting and Flashing the SPIFF Memory is initiated by checking if a detected/
 
 ON-SITE DEBUGGING
 
-A portable flasher and Serial Console Monitoring port in one as implemented on the EQM_OBDWEB Dongle. The idea here is we use the same 6 pin port to flash new code on the ESP32 inside the obd  dongle OR use it as Serial Console port by plugging in a JDY-16 Bluetooth UART module and connect it to a mobile app BLE Serial Terminal  and monitor the ESP32 activity through a mobile phone;
+A portable flasher and serial Console Monitoring port in one is implemented on the EQM_OBDWEB Dongle. The idea here is we use the same 6 pin port to flash new code on the ESP32 inside the obd  dongle OR use it as Serial Console port by plugging in a JDY-16 Bluetooth UART module and connect it to a mobile app BLE Serial Terminal  and monitor the ESP32 activity through a mobile phone;
 
 ![image](https://github.com/EQMOD/EQM_OBDWEB/assets/29789200/fd193d7f-0f1a-49eb-bc8a-70d599164461)
 
@@ -182,7 +182,7 @@ and YES!! you can technically use any ESP32 Board such as a ESP32-CAM as an OBDI
 
 ![image](https://github.com/EQMOD/EQM_OBDWEB/assets/29789200/6ec90e6d-9703-4562-81ae-175638fadb18)
 
-Here is one Example of an ESP32-CAM Board used as an OBD-II Emulator and its flashing LED as an indicator for CAN BUS Activity :-D
+Here is one example of an ESP32-CAM Board used as an OBD-II Emulator and its flashing LED as an indicator for CAN BUS Activity :-D
 
 ![image](https://github.com/EQMOD/EQM_OBDWEB/assets/29789200/51ed0ea7-c57d-46cc-8f41-440a0ab3e130)
 
