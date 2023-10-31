@@ -1,11 +1,11 @@
 ![image](https://github.com/EQMOD/EQM_OBDWEB/assets/29789200/ff318b5f-7a61-4340-b203-8979be0f3c4c)# EQM_OBDWEB
 A WEB Based or Wifi/BLE (EL327 Compatible) OBDII Dongle Platform using the ESP32 WROVER Module
 
-An OBDII Dongle using the ESP32 Wrover with built-in SPIFFF memory is used as a CAN BUS OBDII reader and the data is presented as web page using a built-in webserver. The Webpage communicates to the dongle  via WiFi and Websockets,  ESP32 is a dual core microcontroller with the first core handling the CAN Bus Comunications part, and the 2nd core handling the websocket part. OBDII data is pushed to the UI ever 60ms to 100ms for critical data such as rpm and  speed and every 1000ms for not so critical data such as temp, voltage, etc.  Using ESP32 RTOS for the  multi core multi tasking component. That's basically a webserver running inside that diy dongle attached to the car's obd port. And literally you can read every car metric data and show it on the infotainment with customizable fancy UI stuff (gauges, graphs, etc.) using standard HTML/JS/CSS/JPG renders.
+An OBDII Dongle using the ESP32 Wrover with built-in SPIFFF memory is used as a CAN BUS OBDII reader and the data is presented as web page using a built-in webserver. The webpage code communicates to the dongle via WiFi and uses websockets to retrieve OBDII data.  The platform is using an ESP32 microcontroller which is a dual core mcu  with the first core handling the CAN Bus comunications part and the 2nd core handling the websocket part. OBDII data is pushed to the UI every 60ms to 100ms for critical data such as rpm and speed, and every 1000ms for not so critical data such as temp, voltage, etc.  The platform code is using ESP32 RTOS for the  multi core multi tasking component. That's basically an OBDII with a webserver running inside that  dongle attached to the car's obd port. And literally you can read every car metric data and show it on the car infotainment / Web browser / Phone app  with customizable fancy UI stuff (gauges, graphs, etc.) using standard HTML/JS/CSS/JPG renders.
 
  Mobile phone apps not required as long as the infotainment/mobilephone/etc can render the UI using a standard webbrowser.
 
- Once the UI client is connected to the ESP32 via WIFI,  Webserver can be accessed via these urls; 
+ Once the UI client is connected to the ESP32 via WIFI,  the dongle webserver can be accessed via these urls; 
 
  OBD HomePage:
  
