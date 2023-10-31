@@ -1,0 +1,195 @@
+#speedBarContainer {
+  font-family:Tipperary,verdana;	
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+
+
+#speedBarContainer .MBG1 {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 800px;
+    height: 209px;
+	background:  url("http://192.168.0.10/page?var=file&val=/img/b1.jpg") no-repeat scroll center center transparent;
+}
+#speedBarContainer .MBG2 {
+    position: absolute;
+    left: 0px;
+    top: 207px;
+    width: 800px;
+    height: 209px;
+	background:  url("http://192.168.0.10/page?var=file&val=/img/b2.jpg") no-repeat scroll center center transparent;
+}
+
+#speedBarContainer #speedometerMainDiv {
+  width: 700px;
+  height: 395px;
+  top: 10px;
+  left: 50px;
+  position: absolute;
+}
+#speedBarContainer #speedbarMainDiv {
+  width: 510px;
+  height: 275px;
+  top: 8px;
+  left: 0px;
+  position: absolute;
+  margin: auto;
+
+}
+
+
+
+#speedBarContainer #speedbarMainDiv [class^=speedBar] {
+  height: 6px;
+  margin-top: 2px;
+  border-top: 0px !important;
+}
+#speedBarContainer #speedbarMainDiv .txtSpeed {
+    position: absolute;
+    left: 110px;
+    top: 80px;
+    width: 220px;
+    height: 220px;
+    color: #FFFFFF;
+    font-size:200px;
+	font-weight: bold;
+    line-height: 217px;
+    text-align: center;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+    z-index: 9;
+}
+#speedBarContainer #speedbarMainDiv div.speedBar_5 {
+  width: 38px;
+  margin-left: 4px;
+  z-index: 90;
+}
+#speedBarContainer #speedbarMainDiv div.speedBar_10 {
+  width: 38px;
+  margin-left: 5px;
+  z-index: 90;
+}
+#speedBarContainer #speedbarMainDiv div.speedBar_15 {
+  width: 39px;
+  margin-left: 6px;
+  z-index: 90;
+}
+#speedBarContainer #speedbarMainDiv div.speedBar_20 {
+  width: 40px;
+  margin-left: 7px;
+}
+#speedBarContainer #speedbarMainDiv div.speedBar_25 {
+  width: 41px;
+  margin-left: 8px;
+}
+#speedBarContainer #speedbarMainDiv div.speedBar_30 {
+  width: 42px;
+  margin-left: 9px;
+}
+#speedBarContainer #speedbarMainDiv div.speedBar_35 {
+  width: 43px;
+  margin-left: 11px;
+}
+#speedBarContainer #speedbarMainDiv div.speedBar_40 {
+  width: 44px;
+  margin-left: 12px;
+}
+#speedBarContainer #speedbarMainDiv div.speedBar_45 {
+  width: 45px;
+  margin-left: 14px;
+}
+#speedBarContainer #speedbarMainDiv div.speedBar_50 {
+  width: 46px;
+  margin-left: 16px;
+}
+#speedBarContainer #speedbarMainDiv div.speedBar_55 {
+  width: 47px;
+  margin-left: 18px;
+}
+#speedBarContainer #speedbarMainDiv div.speedBar_60 {
+  width: 48px;
+  margin-left: 21px;
+}
+#speedBarContainer #speedbarMainDiv div.speedBar_65 {
+  width: 50px;
+  margin-left: 24px;
+}
+#speedBarContainer #speedbarMainDiv div.speedBar_70 {
+  width: 52px;
+  margin-left: 27px;
+}
+#speedBarContainer #speedbarMainDiv div.speedBar_75 {
+  width: 54px;
+  margin-left: 31px;
+}
+#speedBarContainer #speedbarMainDiv div.speedBar_80 {
+  width: 56px;
+  margin-left: 35px;
+}
+#speedBarContainer #speedbarMainDiv div.speedBar_85 {
+  width: 58px;
+  margin-left: 40px;
+}
+#speedBarContainer #speedbarMainDiv div.speedBar_90 {
+  width: 60px;
+  margin-left: 45px;
+}
+#speedBarContainer #speedbarMainDiv div.speedBar_95 {
+  width: 65px;
+  margin-left: 50px;
+}
+#speedBarContainer #speedbarMainDiv div.speedBar_100 {
+  width: 70px;
+  margin-left: 56px;
+}
+#speedBarContainer #speedbarMainDiv div.speedBar_105 {
+  width: 77px;
+  margin-left: 62px;
+}
+#speedBarContainer #speedbarMainDiv div.speedBar_110 {
+  width: 85px;
+  margin-left: 70px;
+}
+#speedBarContainer #speedbarMainDiv div.speedBar_115 {
+  width: 100px;
+  margin-left: 80px;
+}
+#speedBarContainer #speedbarMainDiv div.speedBar_120 {
+  width: 120px;
+  margin-left: 90px;
+}
+#speedBarContainer #speedbarMainDiv div.speedBar_125 {
+  width: 140px;
+  margin-left: 100px;
+}
+#speedBarContainer #speedbarMainDiv div.speedBar_130 {
+  width: 160px;
+  margin-left: 115px;
+}
+#speedBarContainer #speedbarMainDiv div.speedBar_135 {
+  width: 180px;
+  margin-left: 135px;
+}
+#speedBarContainer #speedbarMainDiv div.speedBar_140 {
+  width: 210px;
+  margin-left: 160px;
+}
+#speedBarContainer #speedbarMainDiv div.speedBar_145 {
+  width: 240px;
+  margin-left: 186px;
+}
+#speedBarContainer #speedbarMainDiv div.speedBar_150 {
+  width: 275px;
+  margin-left: 220px;
+}
+div.flot-tick-label {
+  color: #999999;
+  font-family: Verdana;
+  font-size: 12px;
+}
