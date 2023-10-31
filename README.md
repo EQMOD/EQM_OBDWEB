@@ -128,11 +128,11 @@ TPMS VC601 Broadcast emulator for testing the cc2541 codes uing a CCDebugger
 
 Firmware Source ( You need IAR to compile these) 
 
-https://github.com/EQMOD/EQM_OBDWEB/tree/main/CC254x_TPMS_BATMON/Custom%20JDY08-CC2541%20Firmware%20TPMS%20BATMON/SDK/BLE-CC254x-1.4.0/Projects/ble/TPMSBroadcast_Tester
+https://github.com/EQMOD/EQM_OBDWEB/tree/master/CC254x_TPMS_BATMON/Custom%20JDY08-CC2541%20Firmware%20TPMS%20BATMON/SDK/BLE-CC254x-1.4.0/Projects/ble/TPMSBroadcast_Tester
 
 JDY08 Firmware source codes to receive BLE VC601 TPMS Sensor broadcasts and presented to the ESP32 via UART
 
-https://github.com/EQMOD/EQM_OBDWEB/tree/main/CC254x_TPMS_BATMON/Custom%20JDY08-CC2541%20Firmware%20TPMS%20BATMON/SDK/BLE-CC254x-1.4.0/Projects/ble/TPMS_OBD
+https://github.com/EQMOD/EQM_OBDWEB/tree/master/CC254x_TPMS_BATMON/Custom%20JDY08-CC2541%20Firmware%20TPMS%20BATMON/SDK/BLE-CC254x-1.4.0/Projects/ble/TPMS_OBD
 
 COMPILING and FLASHING
 
