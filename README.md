@@ -55,6 +55,17 @@ SD Card handlers. This using the ESP32 Wrover (16MB) As the code utilizes the SD
 
 <img width="957" alt="image" src="https://github.com/EQMOD/EQM_OBDWEB/assets/29789200/55d90e89-64c3-4814-b38f-ec89a1f38a46">
 
+USER CUSTOMIZABLE WEB PAGES FOR CAR DASHBOARDS OR OTHER CAR METRICS DATA USING HTML/CSS/JS/IMG with live data using websockets.
+Just load your designs to the SD Card;
+
+Sample code;
+
+https://github.com/EQMOD/EQM_OBDWEB/tree/master/Custom_USERS_WEBUI/Sample_SPDO
+
+![image](https://github.com/EQMOD/EQM_OBDWEB/assets/29789200/2de52d29-4121-49ac-9799-9da895ade9de)
+
+![image](https://github.com/EQMOD/EQM_OBDWEB/assets/29789200/fba9a1da-94eb-4f18-9d98-998feb2f289a)
+
 
 SAMPLE WEBUI RENDERS;
 
