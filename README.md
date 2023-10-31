@@ -48,6 +48,18 @@ And here is the suggested development platform (codes included) which provide th
 
 <img width="897" alt="image" src="https://github.com/EQMOD/EQM_OBDWEB/assets/29789200/714c41b0-87a3-4769-ac86-8fdbf50bd103">
 
+Or by using a separate ARDUINO Board and sketch to burn firmware on the JDY-08 Module using the CCLoader Program
+
+https://github.com/EQMOD/EQM_OBDWEB/tree/master/CC254x_TPMS_BATMON/JDY08_CCLoader
+
+![image](https://github.com/EQMOD/EQM_OBDWEB/assets/29789200/9f0cb754-15d4-401e-bdb6-24ad4b765d67)
+
+
+
+EQM_OBDWEB Development platform structure ;
+
+
+
 ![image](https://github.com/EQMOD/EQM_OBDWEB/assets/29789200/5004d103-8bce-4605-83f4-3de82ef758c6)
 
 Current firmware codes are stable with ESP32 Version 2.0.5 up to 2.0.12. Seems to be encountering issues on 2.0.13 and 2.0.14 particularly on the Wifi and
