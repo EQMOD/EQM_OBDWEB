@@ -172,9 +172,9 @@ Flasher and JDY-16 modules both fit on the same flashing port on the EQM_OBDWEB 
 
 ![image](https://github.com/EQMOD/EQM_OBDWEB/assets/29789200/7f59b2c6-b49e-42fd-8880-529d55bf98ad)
 
-DEVELOPMENT ENVIRONMENT
+DEVELOPMENT ENVIRONMENT using multiple esp32 dongles with one acting as an ECU Emulator
 
-The Development Environment basically is a multiple Instance of the OBD ESP32 Dongles - One with loaded code functioning as an OBDII-Simulator (code included in the repository), A Dummy OBD--II Node (To simulate CAN BUS Traffic) and the EQM_OBDWEB ESP32 OBDII Dongle. The Dummy OBDII CAN Bus node is just the same code as the EQM_OBDWEB with a different WIFI/BLE name and it doesn't wait for CAN BUS Activity. The EQM_OBDWEB waits for CAN BUS Activity specifically to put it in SLEEP MODE (Power Management).
+The development / debugging can be done using multiple instances of the OBD ESP32 Dongles - One with loaded code functioning as an OBDII-Simulator (code included in the repository), A Dummy OBD--II Node (To simulate CAN BUS Traffic) and the EQM_OBDWEB ESP32 OBDII Dongle. The Dummy OBDII CAN Bus node is just the same code as the EQM_OBDWEB with a different WIFI/BLE name and it doesn't wait for CAN BUS Activity. The EQM_OBDWEB waits for CAN BUS Activity specifically to put it in SLEEP MODE (Power Management).
 This one needs more improvement as we are still trying to find options to lessen the the power consumption if in case we decide to leave the dongle attached to the OBDII port of the car....
 
 
