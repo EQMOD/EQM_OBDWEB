@@ -1,0 +1,580 @@
+#rpmBarContainer {
+  font-family:Tipperary,verdana;	
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+
+
+#rpmBarContainer .MBG1 {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 800px;
+    height: 209px;
+	background:  url("img/b1.jpg") no-repeat scroll center center transparent;
+}
+#rpmBarContainer .MBG2 {
+    position: absolute;
+    left: 0px;
+    top: 207px;
+    width: 800px;
+    height: 209px;
+	background:  url("img/b2.jpg") no-repeat scroll center center transparent;
+}
+
+#rpmBarContainer #rpmMeterMainDiv {
+  width: 700px;
+  height: 395px;
+  top: 10px;
+  left: 50px;
+  position: absolute;
+}
+#rpmBarContainer #rpmBarMainDiv {
+  width: 700px;
+  height: 300px;
+  top: 28px;
+  left: 0px;
+  position: absolute;
+  margin: auto;
+
+}
+
+
+
+#rpmBarContainer #rpmBarMainDiv [class^=rpmBar] {
+  height: 6px;
+  margin-top: 2px;
+  border-top: 0px !important;
+}
+#rpmBarContainer #rpmBarMainDiv .txtSpeed {
+    position: absolute;
+    left: 97px;
+    top: 85px;
+    width: 500px;
+    height:220px;
+    color: #FFFFFF;
+    font-size:200px;
+	font-weight: bold;
+    line-height: 217px;
+    text-align: center;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+    z-index: 9;
+}
+
+#rpmBarContainer #rpmBarMainDiv .txtRpm {
+    position: absolute;
+    left: 0px;
+    top: 153px;
+    width: 100px;
+    height: 200px;
+    color: #FFFF7C;
+    font-size:25px;
+	font-weight: bold;
+    line-height: 217px;
+    text-align: left;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+    z-index: 9;
+}
+
+#rpmBarContainer .EGTDialValue {
+    position: absolute;
+    left: 672px;
+    top: 43px;
+    width: 110px;
+    height: 110px;
+    color: #FFFFFF;
+    font-size: 14px;
+    line-height: 105px;
+    text-align: center;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+    z-index: 29;
+}
+
+#rpmBarContainer .EGT2DialValue {
+    position: absolute;
+    left: 7px;
+    top: 43px;
+    width: 110px;
+    height: 110px;
+    color: #FFFFFF;
+    font-size: 14px;
+    line-height: 105px;
+    text-align: center;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+    z-index: 29;
+}
+
+#rpmBarContainer  .IATDialValue {
+    position: absolute;
+    left: 2px;
+    top: 340px;
+    width: 110px;
+    height: 110px;
+    color: #FFFFFF;
+    font-size: 12px;
+    line-height: 105px;
+    text-align: center;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+    z-index: 29;
+}
+
+#rpmBarContainer  .IAT2DialValue {
+    position: absolute;
+    left: 690px;
+    top: 340px;
+    width: 110px;
+    height: 110px;
+    color: #FFFFFF;
+    font-size: 12px;
+    line-height: 105px;
+    text-align: center;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+    z-index: 29;
+}
+
+
+
+.IATNeedle {
+    left: 46px;
+    top: 333px;
+    width: 13px;
+    height: 80px;
+    background: url('img/iat_needle.png') no-repeat scroll 0 0;
+    position:absolute;
+    z-index: 22;
+	transform: rotate(-45deg);
+	transition: transform 1.0s linear 0s;
+}
+.IAT2Needle {
+    left: 742px;
+    top: 329px;
+    width: 13px;
+    height: 80px;
+    background: url('img/iat_needle.png') no-repeat scroll 0 0;
+    position:absolute;
+    z-index: 22;
+	transform: rotate(-45deg);
+	transition: transform 1.0s linear 0s;
+}
+
+.IATCenterDial {
+    left: 42px;
+    top: 363px;
+    width: 21px;
+    height: 21px;
+    background: url('img/center_dial.png') no-repeat scroll 0 0;
+    position:absolute;
+    z-index: 23;
+}
+
+.IAT2CenterDial {
+    left: 737px;
+    top: 362px;
+    width: 21px;
+    height: 21px;
+    background: url('img/center_dial.png') no-repeat scroll 0 0;
+    position:absolute;
+    z-index: 23;
+}
+
+
+
+.EGTAlarm {
+    left: 676px;
+    top: 2px;
+    width: 109px;
+    height: 109px;
+    background: url('img/egt_alarm.png') no-repeat scroll 0 0;
+    position:absolute;
+	opacity: 0;
+    z-index: 25;
+}
+
+
+
+.EGTNeedle {
+    left: 715px;
+    top: 22px;
+    width: 30px;
+    height: 100px;
+    background: url('img/egt_needle.png') no-repeat scroll 0 0;
+    position:absolute;
+    z-index: 26;
+	transform: rotate(-45deg);
+	transition: transform 1.0s linear 0s;
+}
+
+.EGT2Needle {
+    left: 48px;
+    top: 22px;
+    width: 30px;
+    height: 100px;
+    background: url('img/egt_needle.png') no-repeat scroll 0 0;
+    position:absolute;
+    z-index: 26;
+	transform: rotate(-45deg);
+	transition: transform 1.0s linear 0s;
+}
+
+.EGTCenterDial {
+    left: 720px;
+    top: 62px;
+    width: 21px;
+    height: 21px;
+    background: url('img/center_dial.png') no-repeat scroll 0 0;
+    position:absolute;
+    z-index: 27;
+}
+
+.EGT2CenterDial {
+    left: 53px;
+    top: 61px;
+    width: 21px;
+    height: 21px;
+    background: url('img/center_dial.png') no-repeat scroll 0 0;
+    position:absolute;
+    z-index: 27;
+}
+
+
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_5 {
+  width: 38px;
+  margin-left: 4px;
+  z-index: 90;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_10 {
+  width: 38px;
+  margin-left: 5px;
+  z-index: 90;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_15 {
+  width: 39px;
+  margin-left: 6px;
+  z-index: 90;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_20 {
+  width: 40px;
+  margin-left: 7px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_25 {
+  width: 41px;
+  margin-left: 8px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_30 {
+  width: 42px;
+  margin-left: 9px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_35 {
+  width: 43px;
+  margin-left: 11px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_40 {
+  width: 44px;
+  margin-left: 12px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_45 {
+  width: 45px;
+  margin-left: 14px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_50 {
+  width: 46px;
+  margin-left: 16px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_55 {
+  width: 47px;
+  margin-left: 18px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_60 {
+  width: 48px;
+  margin-left: 21px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_65 {
+  width: 50px;
+  margin-left: 24px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_70 {
+  width: 52px;
+  margin-left: 27px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_75 {
+  width: 54px;
+  margin-left: 31px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_80 {
+  width: 56px;
+  margin-left: 35px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_85 {
+  width: 58px;
+  margin-left: 40px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_90 {
+  width: 60px;
+  margin-left: 45px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_95 {
+  width: 65px;
+  margin-left: 50px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_100 {
+  width: 70px;
+  margin-left: 56px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_105 {
+  width: 77px;
+  margin-left: 62px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_110 {
+  width: 85px;
+  margin-left: 70px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_115 {
+  width: 100px;
+  margin-left: 80px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_120 {
+  width: 120px;
+  margin-left: 90px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_125 {
+  width: 140px;
+  margin-left: 100px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_130 {
+  width: 160px;
+  margin-left: 115px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_135 {
+  width: 180px;
+  margin-left: 135px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_140 {
+  width: 210px;
+  margin-left: 160px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_145 {
+  width: 240px;
+  margin-left: 186px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_150 {
+  width: 275px;
+  margin-left: 220px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar2_5 {
+  position: absolute;
+  left:656px;
+  top: 250px;	
+  width: 38px;
+  z-index: 90;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar2_10 {
+  position: absolute;	
+  left:655px;
+  top: 242px;	
+  width: 38px;
+  z-index: 90;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar2_15 {
+  position: absolute;	
+  left:653px;
+  top: 234px;	
+  width: 39px;
+  z-index: 90;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar2_20 {
+  position: absolute;	
+  left:651px;
+  top: 226px;
+  width: 40px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar2_25 {
+  position: absolute;	
+  left:649px;
+  top: 218px;
+  width: 41px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar2_30 {
+  position: absolute;	
+  left:647px;
+  top: 210px;
+  width: 42px;
+
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar2_35 {
+  position: absolute;	
+  left:644px;
+  top: 202px;
+  width: 43px;
+
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar2_40 {
+  position: absolute;	
+  left:642px;
+  top: 194px;
+  width: 44px;
+
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar2_45 {
+  position: absolute;	
+  left:639px;
+  top: 186px;
+  width: 45px;
+
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar2_50 {
+  position: absolute;	
+  left:636px;
+  top: 178px;
+  width: 46px;
+
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar2_55 {
+  position: absolute;	
+  left:633px;
+  top: 170px;
+  width: 47px;
+
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar2_60 {
+  position: absolute;	
+  left:629px;
+  top: 162px;
+  width: 48px;
+
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar2_65 {
+  position: absolute;	
+  left:624px;
+  top: 154px;
+  width: 50px;
+
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar2_70 {
+  position: absolute;	
+  left:619px;
+  top: 146px;
+  width: 52px;
+
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar2_75 {
+  position: absolute;	
+  left:613px;
+  top: 138px;
+  width: 54px;
+
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar2_80 {
+  position: absolute;	
+  left:607px;
+  top: 130px;
+  width: 56px;
+
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar2_85 {
+  position: absolute;	
+  left:600px;
+  top: 122px;
+  width: 58px;
+
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar2_90 {
+  position: absolute;	
+  left:593px;
+  top: 114px;
+  width: 60px;
+
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar2_95 {
+  position: absolute;	
+  left:583px;
+  top: 106px;
+  width: 65px;
+
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar2_100 {
+  position: absolute;	
+  left:572px;
+  top: 98px;
+  width: 70px;
+
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar2_105 {
+  position: absolute;	
+  left:559px;
+  top: 90px;
+  width: 77px;
+
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar2_110 {
+  position: absolute;	
+  left:543px;
+  top: 82px;
+  width: 85px;
+
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar2_115 {
+  position: absolute;	
+  left:518px;
+  top: 74px;
+  width: 100px;
+
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar2_120 {
+  position: absolute;	
+  left:488px;
+  top: 66px;
+  width: 120px;
+
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar2_125 {
+  position: absolute;	
+  left:458px;
+  top: 58px;
+  width: 140px;
+
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar2_130 {
+  position: absolute;	
+  left:423px;
+  top: 50px;
+  width: 160px;
+
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar2_135 {
+  position: absolute;	
+  left:383px;
+  top: 42px;
+  width: 180px;
+
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar2_140 {
+  position: absolute;	
+  left:328px;
+  top: 34px;
+  width: 210px;
+
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar2_145 {
+  position: absolute;	
+  left:272px;
+  top: 26px;
+  width: 240px;
+
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar2_150 {
+  position: absolute;	
+  left:203px;
+  top: 18px;
+  width: 275px;
+
+}
+div.flot-tick-label {
+  color: #999999;
+  font-family: Verdana;
+  font-size: 12px;
+}
