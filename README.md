@@ -31,6 +31,8 @@ WEB-DOCROOT FILESYSTEM
 EQM_OBDWEB uses the SD Card as temporary storage. The WEB DOCROOT files are loaded to the ESP32 Wrover SPIFFs memory for faster page load time. It also utilizes the PSRAM as a temporary buffer for SPIFFs loading up to HTTP delivery. SPIFFS file storage is initially formatted and populated with contents coming from the SD-Card. This is automatically done once the code detects if the SD-Card doesnt have the 'lock.file' inside. It copies the content of the SD-Card to the SPIFFs storage and
 then creates a 'lock.file' on the SD-card to prevent succeeding SPIFFS formatting and file copy.
 
+<img width="1024" alt="image" src="https://github.com/EQMOD/EQM_OBDWEB/assets/29789200/d078c07d-7e55-4241-9a0c-be90f82c1aad">
+
 
 ![image](https://github.com/EQMOD/EQM_OBDWEB/assets/29789200/834baed4-5b0b-4a7f-9e21-36f9c00129a6)
 
