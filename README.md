@@ -115,6 +115,13 @@ https://github.com/EQMOD/EQM_OBDWEB/tree/master/Custom_USERS_WEBUI/Sample_SPDO
 
 <img width="961" alt="image" src="https://github.com/EQMOD/EQM_OBDWEB/assets/29789200/0481a5cb-47ff-49e9-9991-760a7c0b5ec1">
 
+### A sample WEBPAGE with a LIVE video camera/webcam FEED element as the background with the OBDII/ESP32  data (text, needle , bars, charts) on the foreground
+
+https://github.com/EQMOD/EQM_OBDWEB/tree/main/Custom_USERS_WEBUI/WebCAM_and%20WebSocket_Only
+
+<img width="958" alt="image" src="https://github.com/EQMOD/EQM_OBDWEB/assets/29789200/b7d27b1e-5a88-4ee1-b274-ad3395398397">
+
+
 ### Sample 3D Printed OBD Dongle (3d files/stl included in the respository)  
 
 ![image](https://github.com/EQMOD/EQM_OBDWEB/assets/29789200/18fc7b90-b6f0-44de-b6d9-f7ac2d33e340)
