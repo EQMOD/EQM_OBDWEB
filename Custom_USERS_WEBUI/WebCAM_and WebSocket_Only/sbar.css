@@ -1,0 +1,241 @@
+#rpmBarContainer {
+  font-family:Tipperary,verdana;	
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+#video-wrapper {
+	position:absolute;
+	top:0px;
+	left:0px;
+	margin: 0px auto;
+	width: 800px;
+	height: 418px;
+}
+#videoElement {
+	position:absolute;
+	top:0px;
+	left:0px;
+	width: 800px;
+	height: 418px;
+	background-color: #666;
+}
+
+#chart-wrapper{
+	position:absolute;
+	top:309px;
+	left:632px;
+	transform:translate(-50%,-50%);
+	z-index: 69;
+}
+
+
+
+.myChart {
+    top: 0px;
+    left: 0px;
+    position: absolute;
+	z-index: 1;
+
+}
+
+
+#rpmBarContainer #rpmMeterMainDiv {
+  width: 700px;
+  height: 395px;
+  top: 10px;
+  left: 50px;
+  position: absolute;
+}
+#rpmBarContainer #rpmBarMainDiv {
+  width: 510px;
+  height: 275px;
+  top: 8px;
+  left: 0px;
+  position: absolute;
+  margin: auto;
+
+}
+
+
+
+#rpmBarContainer #rpmBarMainDiv [class^=rpmBar] {
+  height: 6px;
+  margin-top: 2px;
+  border-top: 0px !important;
+}
+
+
+#rpmBarContainer #rpmBarMainDiv .txtSpeed {
+    position: absolute;
+    left: 40px;
+    top: 80px;
+    width: 500px;
+    height:220px;
+    color: #FFFFFF;
+    font-size:100px;
+	font-weight: bold;
+    line-height: 217px;
+    text-align: center;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+    z-index: 9;
+}
+
+#rpmBarContainer #rpmBarMainDiv .txtRpm {
+    position: absolute;
+    left: 0px;
+    top: 160px;
+    width: 100px;
+    height: 200px;
+    color: #FFFF7C;
+    font-size:30px;
+	font-weight: bold;
+    line-height: 217px;
+    text-align: left;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+    z-index: 9;
+}
+
+#rpmBarContainer #rpmBarMainDiv .rpmNeedle {
+    left: 565px;
+	top: -82px;
+    width: 44px;
+    height: 450px;
+    position: absolute;
+	background: url("img/rpm_needle1.png") no-repeat scroll center center transparent;
+    transform: rotate(-120deg);
+    transition: transform 0.2s linear 0s; /* 0.2 */
+	z-index: 5;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_5 {
+  width: 38px;
+  margin-left: 4px;
+  z-index: 90;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_10 {
+  width: 38px;
+  margin-left: 5px;
+  z-index: 90;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_15 {
+  width: 39px;
+  margin-left: 6px;
+  z-index: 90;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_20 {
+  width: 40px;
+  margin-left: 7px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_25 {
+  width: 41px;
+  margin-left: 8px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_30 {
+  width: 42px;
+  margin-left: 9px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_35 {
+  width: 43px;
+  margin-left: 11px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_40 {
+  width: 44px;
+  margin-left: 12px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_45 {
+  width: 45px;
+  margin-left: 14px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_50 {
+  width: 46px;
+  margin-left: 16px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_55 {
+  width: 47px;
+  margin-left: 18px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_60 {
+  width: 48px;
+  margin-left: 21px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_65 {
+  width: 50px;
+  margin-left: 24px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_70 {
+  width: 52px;
+  margin-left: 27px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_75 {
+  width: 54px;
+  margin-left: 31px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_80 {
+  width: 56px;
+  margin-left: 35px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_85 {
+  width: 58px;
+  margin-left: 40px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_90 {
+  width: 60px;
+  margin-left: 45px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_95 {
+  width: 65px;
+  margin-left: 50px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_100 {
+  width: 70px;
+  margin-left: 56px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_105 {
+  width: 77px;
+  margin-left: 62px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_110 {
+  width: 85px;
+  margin-left: 70px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_115 {
+  width: 100px;
+  margin-left: 80px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_120 {
+  width: 120px;
+  margin-left: 90px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_125 {
+  width: 140px;
+  margin-left: 100px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_130 {
+  width: 160px;
+  margin-left: 115px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_135 {
+  width: 180px;
+  margin-left: 135px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_140 {
+  width: 210px;
+  margin-left: 160px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_145 {
+  width: 240px;
+  margin-left: 186px;
+}
+#rpmBarContainer #rpmBarMainDiv div.rpmBar_150 {
+  width: 275px;
+  margin-left: 220px;
+}
+div.flot-tick-label {
+  color: #999999;
+  font-family: Verdana;
+  font-size: 12px;
+}
