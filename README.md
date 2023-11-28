@@ -121,6 +121,12 @@ https://github.com/EQMOD/EQM_OBDWEB/tree/main/Custom_USERS_WEBUI/WebCAM_and%20We
 
 <img width="958" alt="image" src="https://github.com/EQMOD/EQM_OBDWEB/assets/29789200/b7d27b1e-5a88-4ee1-b274-ad3395398397">
 
+### Rendering OBD II Data on top of a Mobile Camera or Tablet LIVE Video feed
+
+It is also possible to provide OBD-II data on top of a Mobile or Tablet camera live feed using the phone's browser ONLY if the webpage with your esp32 embedded data  is hosted as localhost or as a direct filesystem html page load or a page loaded via https with a valid SSL certificate. For this demo , all html/css/js/img (files on the above link) are loaded via localhost webserver(using KSWeb app) running on an Android phone. The js part of the page is the one responsible of fetching the esp32 data via websockets and rendering it on top of the phonecam video feed
+
+![image](https://github.com/EQMOD/EQM_OBDWEB/assets/29789200/c21f6350-980d-491a-aa6b-155d11f7e640)
+
 
 ### Sample 3D Printed OBD Dongle (3d files/stl included in the respository)  
 
