@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link type= "text/css" rel="stylesheet" href="obd_cam.css">
+</head>
+<body>
+<div id="OBDContainer">
+		<div id="chart-wrapper"> <canvas id="myChart"></canvas></div>
+		<div id="video-wrapper"> <video autoplay="true" id="videoElement"></video></div>
+ 	<div id="OBDMainDiv">
+ 		<div id="OBDMainDialBG">
+ 			<div class="OBDBGLightAura pulseAura"></div>
+ 			<div class="topSpeedNeedle"></div>
+ 			<div class="rpmNeedle"></div>
+ 			<div class="speedNeedle"></div>
+ 			<div class="txtSpeed">0</div>
+ 			<div id="speedLimitDiv120"></div>
+ 			<div class="OutSideRing"></div>
+ 		</div>
+ 		<div id="OBDMainDialBorder"></div>
+ 		<div class="guageDiv"></div>
+ 		<div class="guage2Div"></div>
+ 		<div class="IATDial"></div>
+ 		<div class="IATDialValue">0 C</div>
+ 		<div class="IAT2DialValue">0</div>
+ 		<div class="IAT2Dial"></div>
+ 		<div class="IATNeedle"></div>
+ 		<div class="IAT2Needle"></div>
+ 		<div class="IATCenterDial"></div>
+ 		<div class="IAT2CenterDial"></div>
+        <div id="IATCover"></div>
+ 		<div class="EGTDial"></div>
+ 		<div class="EGTDialValue">0 C</div>
+ 		<div class="EGT2DialValue">0</div>
+ 		<div class="EGT2Dial"></div>
+ 		<div class="EGTAlarm"></div>
+ 		<div class="EGT2Alarm"></div>
+ 		<div class="EGTNeedle"></div>
+ 		<div class="EGT2Needle"></div>
+ 		<div class="EGTCenterDial"></div>
+ 		<div class="EGT2CenterDial"></div>
+ 		<div id="guageDivBorder"></div>
+ 		<div id="guage2DivBorder"></div>
+ 	    <div id="IATBorderRing"></div>
+ 	    <div id="IAT2BorderRing"></div>
+ 		<div id="EGTBorderRing"></div>
+ 		<div id="EGT2BorderRing"></div>
+ 		</div>
+ </div>
+<script src="jquery.js" type="text/javascript"></script>
+<script src="obd_cam.js"  type="text/javascript"></script>
+<script src="chart.js"  type="text/javascript"></script>
+<script>
+var video = document.querySelector("#videoElement");
+var constraints = {
+    video: {
+      width:1920,
+      height:1080,
+      facingMode: {ideal:"environment"},
+    },
+    audio: false
+};
+if (navigator.mediaDevices.getUserMedia) {
+  navigator.mediaDevices.getUserMedia(constraints)
+    .then(function (stream) {
+      video.srcObject = stream;
+    })
+    .catch(function (err0r) {
+      console.log("Something went wrong!");
+    });
+}
+</script>
+</body>
+</html>

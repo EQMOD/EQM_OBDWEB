@@ -1,0 +1,576 @@
+
+#OBDContainer {
+    font-family:Tipperary,verdana;
+    top:0px;
+    right:0;
+    bottom:0;
+    left:0;
+    height:416px;
+    width:800px;
+    position:relative;
+}
+
+#video-wrapper {
+	position:absolute;
+	top:0px;
+	left:0px;
+	margin: 0px auto;
+	width: 800px;
+	height: 418px;
+}
+#videoElement {
+	position:absolute;
+	top:0px;
+	left:0px;
+	width: 800px;
+	height: 418px;
+	background-color: #666;
+}
+
+#chart-wrapper{
+	position:absolute;
+	top:48px;
+	left:133px;
+	height: 100px;
+	width: 250px;
+	transform:translate(-50%,-50%);
+	z-index: 69;
+}
+
+
+
+.myChart {
+    top: 0px;
+    left: 0px;
+    position: absolute;
+	z-index: 1;
+
+}
+
+
+#OBDMainDiv {
+    width: 800px;
+    height: 416px;
+    top: 0px;
+    left: 0px;
+    position: absolute;
+}
+#OBDMainDiv .txtSpeedUnit {
+    position: relative;
+    left: -4px;
+    top: 168px;
+    color: #999999;
+    font-size: 18px;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+	z-index: 8;
+}
+#OBDMainDiv .txtSpeed {
+    position: absolute;
+    left: 153px;
+    top: 152px;
+    width: 220px;
+    height: 220px;
+    background: url('img/dial_eye3.png') no-repeat scroll center center transparent;
+    color: #FFFFFF;
+    font-size: 40px;
+    line-height: 217px;
+    text-align: center;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+    z-index: 9;
+}
+
+#OBDMainDiv .EGTDialValue {
+    position: absolute;
+    left: 610px;
+    top: 265px;
+    width: 220px;
+    height: 220px;
+    background: url('img/background_dial.png') no-repeat scroll center center transparent;
+    color: #FFFFFF;
+    font-size: 14px;
+    line-height: 217px;
+    text-align: center;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+    z-index: 29;
+}
+
+#OBDMainDiv .EGT2DialValue {
+    position: absolute;
+    left: 15px;
+    top: 322px;
+    width: 110px;
+    height: 110px;
+    background: url('img/background_dial2.png') no-repeat scroll center center transparent;
+    color: #FFFFFF;
+    font-size: 14px;
+    line-height: 105px;
+    text-align: center;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+    z-index: 29;
+}
+
+#OBDMainDiv .IATDialValue {
+    position: absolute;
+    left: 601px;
+    top: 135px;
+    width: 220px;
+    height: 220px;
+    background: url('img/background_dial_S.png') no-repeat scroll center center transparent;
+    color: #FFFFFF;
+    font-size: 12px;
+    line-height: 217px;
+    text-align: center;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+    z-index: 29;
+}
+
+#OBDMainDiv .IAT2DialValue {
+    position: absolute;
+    left: 30px;
+    top: 188px;
+    width: 110px;
+    height: 110px;
+    background: url('img/background_dial_S2.png') no-repeat scroll center center transparent;
+    color: #FFFFFF;
+    font-size: 12px;
+    line-height: 110px;
+    text-align: center;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+    z-index: 29;
+}
+
+
+
+#OBDMainDiv .OutSideRing {
+    position: absolute;
+    left: 153px;
+    top: 152px;
+    width: 220px;
+    height: 220px;
+    background: url('img/dial_out_ring.png') no-repeat scroll center center transparent;
+    z-index: 6;
+}
+#OBDMainDialBG {
+    left: 140px;
+    top: 13px;
+    width: 530px;
+    height: 416px;
+	background: url('img/dial_tick.png') no-repeat scroll 0 0;
+    position:absolute;
+    z-index: 3;
+}
+#OBDMainDialBorder {
+    left: 137px;
+    top: 13px;
+    width: 530px;
+    height: 416px;
+	background: url('img/dial_tick_border.png') no-repeat scroll 0 0;
+    position:absolute;
+    z-index: 15;
+}
+.OBDBGLightAura {
+    left: 110px;
+    top: 130px;
+    width: 496px;
+    height: 416px;
+    background: url('img/aura_light.png') no-repeat scroll 0 0;
+    position:absolute;
+    z-index: 2;
+}
+.pulseAura {
+	animation-name: pulse_animationaura;
+	animation-duration: 3000ms;
+	transform-origin:0% 0%;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
+@keyframes pulse_animationaura {
+	0% { transform: scale(1,1) translate(0px,0px);  }
+	30% { transform: scale(1,1) translate(0px,0px); }
+	40% { transform: scale(1.28,1.28) translate(-30px,-30px); }
+	50% { transform: scale(1,1) translate(0px,0px); }
+	60% { transform: scale(1,1) translate(0px,0px); }
+	70% { transform: scale(1.25,1.25) translate(-26px,-26px); }
+	80% { transform: scale(1,1) translate(0px,0px); }
+	100% { transform: scale(1,1) translate(0px,0px); }
+}
+
+.topSpeedNeedle{
+    left: 252px;
+    top: -13px;
+    width: 25px;
+    height: 550px;
+    background: url('img/top_needle.png') no-repeat scroll center center transparent;
+    position: absolute;
+    transform: rotate(120deg);
+    transition: transform 1.0s linear 0s;
+	z-index: 4;
+}
+.speedNeedle {
+    left: 241px;
+	top: 36px;
+    width: 44px;
+    height: 450px;
+    position: absolute;
+	background: url('img/speed_needle0.png') no-repeat scroll center center transparent;
+    transform: rotate(-120deg);
+    transition: transform 0.2s linear 0s; /* 0.2 */
+	z-index: 5;
+}
+.rpmNeedle {
+    left: 241px;
+	top: 112px;
+    width: 42px;
+    height: 300px;
+    position: absolute;
+	background: url('img/rpm_needle1.png') no-repeat scroll top center transparent;
+    transform: rotate(-120deg);
+    transition: transform 0.2s linear 0s; /* 0.2 */
+	z-index: 7;
+}
+
+
+.speedTopValue{
+    left: 130px;
+	top: 10px;
+    position: absolute;
+	font-size: 18px;
+	color: #FFD700;
+	text-align: right;
+}
+
+
+
+
+#engineDiv {
+    position: absolute;
+    left: 168px;
+    top: 90px;
+    width: 140px;
+    height: 172px;
+	background: url('img/engine_hot.png') no-repeat scroll center center transparent;
+	visibility: hidden; 
+    z-index: 35;
+}
+
+
+
+
+#guageDivBorder {
+    position: absolute;
+    right: 11px;
+    bottom: 15px;
+    width: 128px;
+    height: 240px;
+    background: url('img/dial_ring2.png') no-repeat scroll center center transparent;
+    z-index: 28;
+}
+
+#guage2DivBorder {
+    position: absolute;
+    right: 661px;
+    bottom: 15px;
+    width: 128px;
+    height: 240px;
+    background: url('img/dial_ring3.png') no-repeat scroll center center transparent;
+    z-index: 28;
+}
+
+.guageDiv {
+    position: absolute;
+    right: 11px;
+    bottom: 15px;
+    width: 128px;
+    height: 240px;
+    background: url('img/dial_background.png') no-repeat scroll center center transparent;
+    z-index: 20;
+}
+
+.guage2Div {
+    position: absolute;
+    right: 661px;
+    bottom: 15px;
+    width: 128px;
+    height: 240px;
+    background: url('img/dial_background2.png') no-repeat scroll center center transparent;
+    z-index: 20;
+}
+
+
+.IATDial {
+    left: 677px;
+    top: 180px;
+    width: 278px;
+    height: 241px;
+    background: url('img/temp_dial_tick.png') no-repeat scroll 0 0;
+    background-size: 25% 20%;
+    position:absolute;
+    z-index: 21;
+}
+
+.IAT2Dial {
+    left: 54px;
+    top: 180px;
+    width: 278px;
+    height: 241px;
+    background: url('img/temp_dial_tick.png') no-repeat scroll 0 0;
+    background-size: 25% 20%;
+    position:absolute;
+    z-index: 21;
+}
+.IATNeedle {
+    left: 706px;
+    top: 184px;
+    width: 13px;
+    height: 80px;
+    background: url('img/iat_needle.png') no-repeat scroll 0 0;
+    position:absolute;
+    z-index: 22;
+	transform: rotate(-45deg);
+	transition: transform 1.0s linear 0s;
+}
+.IAT2Needle {
+    left: 83px;
+    top: 184px;
+    width: 13px;
+    height: 80px;
+    background: url('img/iat_needle.png') no-repeat scroll 0 0;
+    position:absolute;
+    z-index: 22;
+	transform: rotate(-45deg);
+	transition: transform 1.0s linear 0s;
+}
+
+.IATCenterDial {
+    left: 701px;
+    top: 213px;
+    width: 21px;
+    height: 21px;
+    background: url('img/center_dial.png') no-repeat scroll 0 0;
+    position:absolute;
+    z-index: 23;
+}
+
+.IAT2CenterDial {
+    left: 78px;
+    top: 213px;
+    width: 21px;
+    height: 21px;
+    background: url('img/center_dial.png') no-repeat scroll 0 0;
+    position:absolute;
+    z-index: 23;
+}
+
+.EGTDial {
+    left: 680px;
+    top: 295px;
+    width: 278px;
+    height: 241px;
+    background: url('img/temp_dial_tick.png') no-repeat scroll 0 0;
+    background-size: 32% 26%;
+    position:absolute;
+    z-index: 24;
+}
+
+.EGT2Dial {
+    left: 30px;
+    top: 295px;
+    width: 278px;
+    height: 241px;
+    background: url('img/temp_dial_tick.png') no-repeat scroll 0 0;
+    background-size: 32% 26%;
+    position:absolute;
+    z-index: 24;
+}
+.EGTAlarm {
+    left: 670px;
+    top: 280px;
+    width: 109px;
+    height: 109px;
+    background: url('img/egt_alarm.png') no-repeat scroll 0 0;
+    position:absolute;
+	opacity: 0;
+    z-index: 25;
+}
+
+.EGT2Alarm {
+    left: 18px;
+    top: 280px;
+    width: 109px;
+    height: 109px;
+    background: url('img/egt_alarm.png') no-repeat scroll 0 0;
+    position:absolute;
+	opacity: 0;
+    z-index: 25;
+}
+
+.EGTNeedle {
+    left: 709px;
+    top: 300px;
+    width: 30px;
+    height: 100px;
+    background: url('img/egt_needle.png') no-repeat scroll 0 0;
+    position:absolute;
+    z-index: 26;
+	transform: rotate(-45deg);
+	transition: transform 1.0s linear 0s;
+}
+
+.EGT2Needle {
+    left: 59px;
+    top: 300px;
+    width: 30px;
+    height: 100px;
+    background: url('img/egt_needle.png') no-repeat scroll 0 0;
+    position:absolute;
+    z-index: 26;
+	transform: rotate(-45deg);
+	transition: transform 1.0s linear 0s;
+}
+
+.EGTCenterDial {
+    left: 713px;
+    top: 340px;
+    width: 21px;
+    height: 21px;
+    background: url('img/center_dial.png') no-repeat scroll 0 0;
+    position:absolute;
+    z-index: 27;
+}
+
+.EGT2CenterDial {
+    left: 63px;
+    top: 340px;
+    width: 21px;
+    height: 21px;
+    background: url('img/center_dial.png') no-repeat scroll 0 0;
+    position:absolute;
+    z-index: 27;
+}
+#IATBorderRing {
+	left: 661px;
+    top: 162px;
+    width: 102px;
+    height: 102px;
+    background: url('img/iat_border.png') no-repeat scroll 0 0;
+    position:absolute;
+    z-index: 29;
+}
+
+#IAT2BorderRing {
+	left: 38px;
+    top: 162px;
+    width: 102px;
+    height: 102px;
+    background: url('img/iat_border.png') no-repeat scroll 0 0;
+    position:absolute;
+    z-index: 29;
+}
+#EGTBorderRing {
+	left: 663px;
+    top: 273px;
+    width: 128px;
+    height: 128px;
+    background: url('img/egt_border.png') no-repeat scroll 0 0;
+    position:absolute;
+    z-index: 31;
+}
+
+#EGT2BorderRing {
+	left: 11px;
+    top: 273px;
+    width: 128px;
+    height: 128px;
+    background: url('img/egt_border.png') no-repeat scroll 0 0;
+    position:absolute;
+    z-index: 31;
+}
+
+
+#OBDMainDiv .TrFR {
+    position: absolute;
+    left: 640px;
+    top: 125px;
+    width: 80px;
+    height: 30px;
+    color: #FFFFFF;
+    font-size: 12px;
+    line-height: 30px;
+    text-align: center;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+    z-index: 29;
+}
+
+#OBDMainDiv .TrFL {
+    position: absolute;
+    left: 730px;
+    top: 35px;
+    width: 80px;
+    height: 30px;
+    color: #FFFFFF;
+    font-size: 12px;
+    line-height: 30px;
+    text-align: center;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+    z-index: 29;
+}
+
+#OBDMainDiv .TrRL {
+    position: absolute;
+    left: 655px;
+    top: 3px;
+    width: 80px;
+    height: 30px;
+    color: #FFFFFF;
+    font-size: 12px;
+    line-height: 30px;
+    text-align: center;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+    z-index: 29;
+}
+
+#OBDMainDiv .TrRR {
+    position: absolute;
+    left: 500px;
+    top: 17px;
+    width: 80px;
+    height: 30px;
+    color: #FFFFFF;
+    font-size: 12px;
+    line-height: 30px;
+    text-align: center;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+    z-index: 29;
+}
+
+
+#OBDMainDiv .TrSP {
+    position: absolute;
+    left: 570px;
+    top: 5px;
+    width: 80px;
+    height: 30px;
+    color: #FFFFFF;
+    font-size: 11px;
+    line-height: 30px;
+    text-align: center;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+    z-index: 29;
+}
+
+
+#OBDMainDiv .CAtValue {
+    position: absolute;
+    left: 15px;
+    top: 97px;
+    width: 110px;
+    height: 30px;
+    color: yellow;
+    font-size: 12px;
+    line-height: 105px;
+    text-align: center;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+    z-index: 29;
+}
