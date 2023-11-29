@@ -128,6 +128,18 @@ It is also possible to provide OBD-II data on top of a Mobile or Tablet camera l
 ![image](https://github.com/EQMOD/EQM_OBDWEB/assets/29789200/c21f6350-980d-491a-aa6b-155d11f7e640)
 
 
+### Transparent Gauges with a Mobile Phone CAM
+
+Using the original gauge assets and replacing the background images  with a live feed of phonecam video. The approach is the same as what was described on the previous section. Here is another demo of a mobile phone web browser with the phonecam live feed rendering on the background and the gauge assets rendering on the chrome browser foreground. Rendered using chrome browser html/js/css/img with the JavaScript communicating to the esp32 obdii using websockets. Obdii dongle is acting as a wifi hotspot while connected to the car's OBD Port. I used jQuery and charts.js for the gauge renders. Upper left corner shows a live load stats of the ESP32 dual cores.
+
+Webpage Code and Assets:
+
+https://github.com/EQMOD/EQM_OBDWEB/tree/main/Custom_USERS_WEBUI/OBDGauges_WEBCam_Websockets
+
+<img width="958" alt="image" src="https://github.com/EQMOD/EQM_OBDWEB/assets/29789200/a7cc0032-9046-48c7-8942-3bd2a7107fe9">
+
+
+
 ### Sample 3D Printed OBD Dongle (3d files/stl included in the respository)  
 
 ![image](https://github.com/EQMOD/EQM_OBDWEB/assets/29789200/18fc7b90-b6f0-44de-b6d9-f7ac2d33e340)
