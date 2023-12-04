@@ -2,7 +2,7 @@
 
 ## Introduction
 
-A WEB Based or Wifi/BLE (EL327 Compatible) OBDII Dongle Platform using the ESP32 WROVER (16MB) Module
+A WEB Based or Wifi/BLE (ELM327 Compatible) OBDII Dongle Platform using the ESP32 WROVER (16MB) Module
 
 An OBDII Dongle using the ESP32 Wrover  with built-in SPIFFF memory is used as a CAN BUS OBDII reader and the data is presented as web page using a built-in webserver. The webpage code communicates to the dongle via WiFi and uses websockets to retrieve OBDII data.  The platform is using an ESP32 microcontroller which is a dual core mcu  with the first core handling the CAN Bus comunications part via SN65HVD230 CAN BUS Transceiver and the 2nd core handling the websocket part. OBDII data is pushed to the UI every 60ms to 100ms for critical data such as rpm and speed, and every 1000ms for not so critical data such as temp, voltage, etc. 
 
