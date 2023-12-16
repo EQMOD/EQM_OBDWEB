@@ -1,0 +1,1 @@
+Just drop this file on the RejsaCAN SD Card to flash it on the JDY08 Module
